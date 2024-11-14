@@ -34,6 +34,20 @@ Langkah - langkah:
    photo_url TEXT
    );
 
+   -- Tabel untuk isi form
+   CREATE TABLE forms (
+    id SERIAL PRIMARY KEY,
+    nama_lengkap VARCHAR(100),
+    jenis_kelamin VARCHAR(10),
+    usia INTEGER,
+    nomor_telepon VARCHAR(15),
+    email VARCHAR(100),
+    alamat TEXT,
+    kategori_acara VARCHAR(50),
+    riwayat_kesehatan TEXT,
+    foto_url VARCHAR(255)
+   );
+
 
 5. Kemudian Execute script
 
