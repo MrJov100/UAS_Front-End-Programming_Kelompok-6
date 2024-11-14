@@ -1,0 +1,47 @@
+Ini adalah project login untuk uji coba pembuatan login page dan signup page dengan express.
+
+Langkah - langkah:
+
+1. Ubah user & password pada server.js
+   const pool = new Pool({
+   user: "<UBAH>",
+   host: "localhost",
+   database: "FitSteps",
+   password: "<UBAH>",
+   port: 5432,
+   });
+
+2. Buka pgadmin4, kemudian buat database baru bernama WebsiteLifestyle
+
+3. dalam database CobaLogin, cari Schemas > Tables
+   kemudian klik kanan pada Tables > Query Tools
+
+4. paste kode ini ke dalam query
+   -- Tabel untuk menyimpan data pengguna
+   CREATE TABLE users (
+   id SERIAL PRIMARY KEY,
+   nama_lengkap VARCHAR(255) NOT NULL, 
+   email VARCHAR(255) UNIQUE NOT NULL,
+   password TEXT NOT NULL
+   );
+
+
+   -- Tabel untuk menyimpan data foto yang diupload
+   CREATE TABLE uploads (
+   id SERIAL PRIMARY KEY,
+   id_user INTEGER REFERENCES users(id) ON DELETE CASCADE,  -- Foreign key referencing users table
+   caption TEXT,
+   photo_url TEXT
+   );
+
+
+5. Kemudian Execute script
+
+6. buka terminal lalu run,
+   npm install express pg multer bcryptjs express-session
+
+7. buka terminal lalu run,
+   npm install ejs
+
+8. run
+   node server.js

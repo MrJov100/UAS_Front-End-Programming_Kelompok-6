@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/backToTopButton.css" />
+    <link rel="stylesheet" href="/css/events.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+  </head>
+  <body ng-controller="MainController">
+    <!-- TOMBOL Back to Top -->
+    <button id="backToTopBtn" class="back-to-top">
+      <img
+        src="/assets/images/green-up.png"
+        alt="Back to Top"
+        id="backToTopImg"
+      />
+    </button>
+
+    <nav id="navbar">
+      <input type="checkbox" id="check" />
+
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <a href="index.html" id="logo"
+        ><img src="../assets/images/logo.png" alt="FitSteps Logo"
+      /></a>
+
+      <div class="navbar-biasa">
+        <a href="/">Home</a>
+        <a href="/tips-workout">Tips & Workout</a>
+        <a href="/trendy-shoes">Trendy Shoes</a>
+        <a href="/health-benefits">Health Benefits</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/events">Upcoming Events</a>
+
+        <% if (loggedIn) { %>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+        <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Daftar</a>
+        <% } %>
+
+        <!-- Tombol Mode Terang/Gelap -->
+        <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+      </div>
+
+      <a href="index.html" id="moto"
+        ><img src="/assets/images/moto.png" alt="FitSteps Moto"
+      /></a>
+    </nav>
+
+    <section>
+      <h2>Sports Event Calendar Indonesia</h2>
+      <h3>Sports Schedule</h3>
+      <p>
+        "Follow and get various information on the running event calendar for
+        2024 throughout Indonesia. Find events based on location, date, type of
+        event, and running category that matches your interests!"
+      </p>
+
+      <select id="month-filter">
+        <option value="all">All Months</option>
+        <option value="01">January</option>
+        <option value="02">February</option>
+        <option value="03">March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+      <div
+        id="search-container"
+        style="text-align: center; margin-bottom: 20px"
+      >
+        <input
+          type="text"
+          id="location-search"
+          placeholder="Search Your City"
+        />
+        <button id="search-btn">Search</button>
+      </div>
+
+      <div class="event-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Event Name</th>
+              <th>Category</th>
+              <th>Event Type</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody id="event-table"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div id="footer-placeholder"><%- include('footer') %></div>
+
+    <script src="/scripts/events-script.js"></script>
+    <script src="/scripts/theme-toggle.js"></script>
+    <script src="/scripts/backToTopButton.js"></script>
+    <script src="/scripts/footer.js"></script>
+    <script src="/scripts/navbar.js"></script>
+  </body>
+</html>

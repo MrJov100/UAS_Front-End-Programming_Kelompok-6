@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/theme.css" />
+    <!-- Path CSS yang sama seperti di index.ejs -->
+  </head>
+
+  <body>
+    <body>
+      <div class="container">
+        <!-- Sesuaikan dengan struktur di index.ejs -->
+        <h1>Login</h1>
+        <form action="/login" method="POST" class="form-login">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            required
+            class="input-field"
+          />
+          <br />
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+            class="input-field"
+          />
+          <br />
+          <button type="submit" class="btn-submit">Login</button>
+        </form>
+        <a href="/signup" class="signup-link"
+          >Don't have an account? Sign up here</a
+        >
+      </div>
+    </body>
+  </body>
+</html>
