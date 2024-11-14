@@ -1,0 +1,111 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and Background */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f7fc;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background-color: #007bff;
+  padding: 15px 0;
+}
+
+header nav ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+
+header nav ul li {
+  margin: 0 20px;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 5px 15px;
+  transition: background-color 0.3s ease;
+}
+
+header nav ul li a:hover {
+  background-color: #0056b3;
+  border-radius: 5px;
+}
+
+/* Main Content */
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin: 30px 0;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Profile Container */
+.profile-container {
+  background-color: white;
+  padding: 30px;
+  margin: 30px auto;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.profile-container p strong {
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* Profile Actions */
+.profile-actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-actions form {
+  margin: 10px 0;
+}
+
+.profile-actions button {
+  background-color: #007bff;
+  color: white;
+  font-size: 1.1em;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+  transition: background-color 0.3s ease;
+}
+
+.profile-actions button:hover {
+  background-color: #0056b3;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .profile-actions button {
+    width: 100%;
+  }
+}

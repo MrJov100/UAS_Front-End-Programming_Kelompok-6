@@ -1,0 +1,243 @@
+/* GAYA Light Mode */
+body {
+  background: linear-gradient(to bottom, #fff, #fff);
+  color: #333;
+}
+
+#navbar {
+  background: #fff;
+}
+
+.navbar-biasa {
+  background-color: #ffffff;
+}
+
+.checkbtn {
+  color: #37ad28;
+}
+
+.content {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.cta-section h2,
+.cta-section p {
+  color: #000000;
+}
+
+.newsletter-section {
+  background-color: #c3c3c3;
+  color: #333;
+}
+
+.back-to-top {
+  background-color: transparent;
+}
+
+/* GAYA Dark Mode */
+body.dark-mode {
+  background: linear-gradient(to bottom, #333, #000);
+  color: #ddd;
+}
+
+body.dark-mode #navbar {
+  background: #4f4e4e;
+}
+
+body.dark-mode .content {
+  background-color: #444;
+  color: #ddd;
+}
+
+body.dark-mode .cta-section {
+  background-color: #444;
+  color: #ddd;
+}
+
+body.dark-mode .cta-section h2,
+body.dark-mode .cta-section p {
+  color: #eee;
+}
+
+body.dark-mode p {
+  color: #eee;
+}
+
+body.dark-mode .newsletter-section {
+  background-color: #555;
+  color: #ddd;
+}
+
+body.dark-mode footer {
+  background-color: #082667;
+  color: #ddd;
+}
+
+body.dark-mode .newsletter-section h2 {
+  color: #ddd;
+}
+
+body.dark-mode .back-to-top {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode a {
+  color: #ddd;
+}
+
+body.dark-mode a:hover {
+  color: #fff;
+}
+
+/* Tombol Toggle Mode Terang/Gelap */
+.theme-toggle-btn {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease;
+  position: flex;
+  top: 20px;
+  right: 200px;
+}
+
+.theme-toggle-btn:hover {
+  background-color: #e0e0e0; /* Warna saat hover */
+  transform: scale(1.1); /* Efek memperbesar saat hover */
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95); /* Efek saat tombol ditekan */
+}
+
+.dark-mode .theme-toggle-btn {
+  background-color: #333; /* Warna latar untuk mode gelap */
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Tambahkan animasi untuk transisi mode terang/gelap */
+body {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Styling body untuk mode terang dan gelap */
+body.dark-mode {
+  background-color: #2c2c2c;
+  color: #f0f0f0;
+}
+
+body.dark-mode .kotak {
+  color: #000;
+}
+
+body.dark-mode #kesehatan p {
+  color: #000;
+}
+
+body.dark-mode #navbar-data {
+  background-color: #737373;
+}
+
+body.dark-mode #navbar-data ul li a {
+  color: #ffffff;
+}
+
+body.dark-mode .content-container h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .content-container p {
+  color: #ffffff;
+}
+
+body.dark-mode .left-navbar a {
+  color: #ffffff;
+}
+
+body.dark-mode .left-navbar {
+  background-color: #696969;
+}
+
+body.dark-mode .desc {
+  color: #ffffff;
+}
+
+body.dark-mode .content-container .workout-section {
+  background-color: #000000;
+}
+
+body.dark-mode .right-section h3 {
+  color: #ffffff;
+  background-color: #565656;
+}
+
+body.dark-mode .checkbtn {
+  color: rgb(255, 255, 255);
+}
+
+body.dark-mode .navbar-biasa {
+  background-color: #4f4e4e;
+}
+
+body.dark-mode section h2 {
+  color: #ffffff;
+}
+
+body.dark-mode section h3 {
+  color: #37ad28;
+}
+
+body.dark-mode .event-container table {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+body.dark-mode tbody tr:hover {
+  background-color: #505050;
+}
+
+body.dark-mode tbody tr:nth-child(even) {
+  background-color: #555555;
+}
+
+body.dark-mode td::before {
+  color: #ffffff;
+}
+
+body.dark-mode .navbar-data {
+  background-color: #555555;
+}
+
+body.dark-mode .isi h2 {
+  color: #37ad28;
+}
+
+body.dark-mode .isi p {
+  color: black;
+}
+
+header.dark-mode .menu-icon {
+  color: #ffffff;
+}
+
+body.dark-mode #month-filter {
+  background-color: #176300;
+  color: white;
+}
+
+body.dark-mode #search-container input {
+  background-color: #000000;
+}
+
+body.dark-mode #search-container ::placeholder {
+  color: white;
+}
+
+body.dark-mode #location-search {
+  color: white;
+}

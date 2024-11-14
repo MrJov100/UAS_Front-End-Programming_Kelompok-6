@@ -1,0 +1,385 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.carousel-container {
+  position: relative;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 600px;
+}
+
+.carousel-caption h5 {
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+.carousel-caption p {
+  font-size: 1.2rem;
+  color: rgb(255, 255, 255);
+}
+
+section h2,
+section h3 {
+  font-family: "Lora", serif;
+  color: #333;
+}
+
+section p {
+  font-family: "Open Sans", sans-serif;
+  color: #555;
+}
+
+/* ===========BATAS=========== */
+
+/* Content styling */
+.content {
+  margin-top: 40px;
+  padding: 40px;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content h1 {
+  font-size: 2.5em;
+  color: #4bde38;
+}
+
+.content p {
+  font-size: 1.1em;
+  color: #666;
+  margin-top: 15px;
+  line-height: 1.8;
+}
+
+#background-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.video-container {
+  position: relative;
+  margin-top: 100px;
+  width: 80%;
+  margin: 100px auto 0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#volume-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(179, 179, 179, 0.8);
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 0;
+  transition: background 0.3s ease;
+}
+
+#volume-btn:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+/* ===========BATAS=========== */
+
+/* Fungsi Responsive Navbar */
+/* ketika web dibuka di layar kecil, logo, navbar, video akan menyesuaikan */
+@media (max-width: 768px) {
+  #navbar {
+    padding: 0 20px;
+    height: 60px;
+  }
+
+  #navbar #logo img,
+  #navbar #moto img {
+    height: 40px;
+  }
+
+  .navbar-biasa a {
+    font-size: 0.9em;
+    padding: 8px 12px;
+  }
+
+  .video-container {
+    width: 100%;
+  }
+}
+
+/* ===========BATAS=========== */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.banner {
+  margin-top: 70px;
+  text-align: center;
+}
+
+.banner img {
+  width: 70%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+/* ===========BATAS=========== */
+
+/* POP UP BROSUR */
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-background.hidden {
+  display: none;
+}
+
+.popup-content {
+  position: relative;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+  animation: bounceIn 0.5s ease;
+}
+
+.popup-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  animation: bounceIn 0.5s ease;
+}
+
+.close-btn {
+  display: inline-block;
+  background-color: #279718;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  animation: bounceIn 3s ease;
+}
+
+.close-btn:hover {
+  background-color: #4bde38;
+}
+
+/* Keyframes efek bounce */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0; /* opacity 0 tak terlihat */
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1; /* opacitiy 1 mulai terlihat dengan skala 110% dari ukuran normal */
+  }
+  70% {
+    transform: scale(0.9); /* skala berkurang ke ukuran 90% dari normal */
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1; /* skala kembali ke ukuran normal dengan opacity 1 */
+  }
+}
+
+/* ===========BATAS=========== */
+
+/* Style untuk muncul 3 Ways */
+.images-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.scroll-image {
+  width: 30%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+.image1.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.image2.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.image3.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .images-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .scroll-image {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+}
+
+/* ===========BATAS=========== */
+
+/* Style untuk HEALTH BENEFITS HOME */
+.cta-section {
+  padding: 40px;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  width: 80%;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-section h2 {
+  font-size: 2.5em;
+  color: #000000;
+  margin-bottom: 50px;
+}
+
+.cta-section p {
+  font-size: 1.5em;
+  color: #666;
+  margin-bottom: 50px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #279718;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #4bde38;
+}
+
+/* ===========BATAS=========== */
+
+/* BAGIAN NEWSLETTER */
+.newsletter-section {
+  padding: 40px;
+  background-color: #c3c3c3;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  margin-top: 100px;
+}
+
+.newsletter-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 15px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.newsletter-section p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 25px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.newsletter-section .form-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.newsletter-section input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.newsletter-section .signup-button {
+  padding: 12px 25px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.5s;
+}
+
+.newsletter-section .signup-button:hover {
+  background-color: #4bde38;
+}
+
+.newsletter-section .signup-button:active {
+  background-color: #39802f;
+}
+
+.newsletter-section p:last-of-type {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #777777;
+}

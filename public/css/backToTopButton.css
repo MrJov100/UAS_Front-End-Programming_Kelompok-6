@@ -1,0 +1,40 @@
+/* agar semua elemen scroll menjadi lebih smooth */
+html {
+  scroll-behavior: smooth;
+}
+
+/* STYLE BACK TO TOP */
+/* Animasi Bergerak */
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); /* Menggerakkan tombol ke atas */
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: block;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  animation: moveUpDown 1s infinite;
+  z-index: 1000; /* agar tombol selalu di paling depan dari elemen lain */
+}
+
+.back-to-top img {
+  width: 60px;
+  height: 60px;
+}
+
+.back-to-top:hover img {
+  transform: scale(1.4);
+  transition: transform 0.2s ease-in;
+}
