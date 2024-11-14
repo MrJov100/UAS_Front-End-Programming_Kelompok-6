@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/healthBenefits.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/backToTopButton.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+  </head>
+  
+  <body>
+    <!-- TOMBOL Back to Top -->
+    <button id="backToTopBtn" class="back-to-top">
+      <img
+        src="/assets/images/green-up.png"
+        alt="Back to Top"
+        id="backToTopImg"
+      />
+    </button>
+    
+        <nav id="navbar">
+      <input type="checkbox" id="check" />
+
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <a href="index.html" id="logo"
+        ><img src="/assets/images/logo.png" alt="FitSteps Logo"
+      /></a>
+
+      <div class="navbar-biasa">
+        <a href="/">Home</a>
+        <a href="/tips-workout">Tips & Workout</a>
+        <a href="/trendy-shoes">Trendy Shoes</a>
+        <a href="/health-benefits">Health Benefits</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/events">Upcoming Events</a>
+
+        <% if (loggedIn) { %>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+        <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Daftar</a>
+        <% } %>
+
+        <!-- Tombol Mode Terang/Gelap -->
+        <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+      </div>
+
+      <a href="index.html" id="moto"
+        ><img src="/assets/images/moto.png" alt="FitSteps Moto"
+      /></a>
+    </nav>
+
+    <header>
+      <div class="sidebar">
+        <i class="fas fa-bars" id="menu-icon"></i>
+        <!-- <i class="fas fa-times" id="close-btn"></i> -->
+
+        <div class="navbar-data">
+          <a href="#" onclick="scrollToSection('pengertian')">Definition</a>
+          <a href="#" onclick="scrollToSection('jenis')">Types</a>
+          <a href="#" onclick="scrollToSection('manfaat')">Benefits</a>
+          <a href="#" onclick="scrollToSection('jogging')">Jogging</a>
+          <a href="#" onclick="scrollToSection('lari')">Running</a>
+          <a href="#" onclick="scrollToSection('bersepeda')">Cycling</a>
+          <a href="#" onclick="scrollToSection('yoga')">Yoga</a>
+          <a href="#" onclick="scrollToSection('berenang')">Swimming</a>
+          <a href="#" onclick="scrollToSection('badmin')">Badminton</a>
+        </div>
+      </div>
+    </header>
+
+
+    <div class="isi">
+      <h1>Health Benefits Based on Types of Sports</h1>
+
+      <section id="pengertian" class="data-no-img">
+        <h2>Definition</h2>
+        <div class="posisi">
+          <div class="isi-dalam">
+            <p>
+              Sports are physical activities aimed at strengthening and maintaining
+              body health, such as soccer, swimming, and javelin throw, Sports also involve physical
+              and skill-based activities performed by individuals or teams for entertainment.
+              Below are the types of sports based on their popularity.
+              However, there are also types of sports categorized by modern development, namely:
+              <ul>
+                <li>
+                  <h3>Traditional Sports</h3>
+                  These are sports that originated from local, traditional games and developed with cultural significance.
+                  Example of traditional sports include pencak silat, segrang, sepak takraw, bakiak, and others.
+                </li>
+                <li><h3>Modern Sports</h3>
+                  Modern sports focus on systematic development of physiscal and mental potential, These sports evolve with technological advancements and include games,
+                  competitions, and well-structured rules.
+                </li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="jenis" class="data-no-img">
+        <h2>Types</h2>
+        <div class="posisi">
+          <div class="isi-dalam">
+            <p>
+              Here are some common and popular types of sports people engage in to maintain body health and fitness:
+              <ul>
+                <li><h3>Running</h3>Running is a cardiovascular exercise effective for building stamina and heart health. You can run outdoors or on a treadmill.</li>
+                <li><h3>Weightlifting</h3>Weightlifting or strength training involves using weights or body weight to strengthen muscles. It helps build strength, bone density, and metabolism.</li>
+                <li><h3>Aerobics</h3>Aerobics involves repeated high-intensity cardiovascular movements. It helps improve heart fitness, burn calories, and strengthen muscles.</li>
+                <li><h3>Cycling</h3>Cycling can be done outdoors or at the gym using a stationary bike. It improves muscle strength, endurance, and cardiovascular health.</li>
+                <li><h3>Yoga</h3>Yoga combines body movements, breathing, and meditation to improve flexibility, core strength, balance, and relaxation.</li>
+                <li><h3>Swimming</h3>Swimming is a full-body workout that strengthens muscles and builds endurance. It’s low-impact and suitable for all ages.</li>
+                </ul>  
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="manfaat" class="data-no-img">
+      <h2>Benefits</h2>
+      <div class="posisi">
+        <div class="isi-dalam">
+          <h3>Here are the benefits of regular exercise:</h3>
+            <p>
+              <ul>
+                <li>Boosts mood and reduces feelings of depression, anxiety, and stress.</li>
+                <li>Helps with weight loss.</li>
+                <li>Builds and maintains muscle strength and bone density.</li>
+                <li>Increases energy levels for both healthy individuals and those with medical conditions.</li>
+                <li>Reduces the risk of chronic diseases.</li>
+                <li>Promotes healthy skin.</li>
+                <li>Enhances brain function and memory.</li>
+                <li>Improves sleep quality.</li>
+                <li>Helps relieve chronic pain.</li>
+                <li>Strengthens the immune system.</li>
+                <li>Improves flexibility and balance.</li>
+                <li>Boosts metabolism.</li>
+                <li>Supports good posture.</li>
+                <li>Improves cardiovascular and respiratory health.</li>
+              </ul>
+            </p>
+        </div>
+      </div>
+      </section>
+
+      <section id="jogging" class="data-ada-img">
+      <h2>Jogging</h2>
+      <div class="posisi">
+        <div class="image">
+          <img src="/assets/images/olahraga/jogging.jpeg" alt="Jogging">
+        </div>
+        <div class="isi-dalam">
+          <p>
+            Jogging can increase bone strength and muscle mass. Additionally, jogging engages large muscles such as the hamstrings, calves, and glutes, 
+            helping to tone the body. Each time you exercise, the muscles experience physical stress, which ultimately makes the body stronger. 
+            Jogging also helps improve endurance, as the cardiovascular system works more efficiently during running, pumping more oxygen throughout the body. 
+            This activity also helps increase lung capacity, making breathing more efficient.<br><br>
+            
+            In addition to physical benefits, jogging also has positive effects on mental health. While running, the body releases endorphins, known as the "happy" hormone, 
+            which helps reduce stress and improve mood. In fact, regular jogging can help reduce the risk of mental health disorders such as depression and anxiety.
+          
+            <br><br>
+            Various studies also show that jogging can help improve sleep quality. Regular physical activities like jogging help the body feel more relaxed and healthily tired, 
+            leading to better and more restful sleep. Additionally, jogging can help regulate sleep patterns by increasing serotonin levels in the brain, 
+            which plays a key role in managing sleep cycles. With enough quality sleep, the body has the opportunity to repair damaged cells, 
+            thereby strengthening the immune system and maintaining overall health.
+          </p>          
+        </div>
+      </div>
+      </section>
+
+      <section id="lari" class="data-ada-img">
+      <h2>Running</h2>
+      <div class="posisi">
+        <div class="image">
+          <img src="/assets/images/olahraga/lari.jpeg" alt="Lari">
+        </div>
+        <div class="isi-dalam">
+          <p>
+            Running is a highly effective form of cardiovascular exercise that improves overall 
+            body health. This activity involves almost all muscles of the body, 
+            especially the large muscles in the legs, such as the thighs, calves, and glutes. 
+            Regular running can help increase muscle strength, strengthen bones, and maintain joint flexibility.
+            <br><br>
+
+            Additionally, running can enhance stamina and endurance. Cardiovascularly, running trains the heart to be more 
+            efficient in pumping blood, thereby reducing the risk of heart disease. Running for 30 minutes at 
+            moderate to high intensity several times a week can also help lower blood pressure and control cholesterol levels.
+            <br><br>
+            
+            Another benefit of running is its ability to improve sleep quality. By running regularly, the body becomes more 
+            relaxed and naturally fatigued, making it easier to fall asleep quickly and deeply. Running can also help boost metabolism, 
+            meaning the body continues to burn calories even after exercise. Moreover, running stimulates the release of endorphins, 
+            known as the "happiness hormone," which can enhance mood and reduce stress. With this combination of physical 
+            and mental benefits, running is an effective exercise for maintaining overall health.
+            <br><br>
+
+          </p>
+        </div>
+      </div>
+      </section>
+
+      <section id="bersepeda" class="data-ada-img">
+        <h2>Cycling</h2>
+        <div class="posisi">
+          <div class="image">
+            <img src="/assets/images/olahraga/Sepeda.jpeg" alt="Bersepeda">
+          </div>
+          <div class="isi-dalam">
+            <p>
+              Cycling helps burn calories and boosts metabolism, which is very effective 
+              for maintaining an ideal weight. Cycling is a type of cardio exercise that promotes 
+              heart and lung health, as well as improves blood circulation. By cycling regularly, 
+              not only does blood fat decrease, but it also helps improve the elasticity of blood vessels 
+              and reduces the risk of arterial blockages, which can have positive effects for those with high blood pressure.
+              <br><br>
+              
+              Additionally, cycling helps strengthen leg muscles, especially the thighs, calves, and hips, 
+              and enhances the body's balance and coordination. This activity can be done at various intensities, 
+              from leisurely rides to high-speed cycling, all of which offer benefits for physical and mental health.
+              <br><br>
+              
+              Cycling can also help reduce stress and improve mood. When cycling, the body releases endorphins, 
+              which can create feelings of happiness and relaxation. Moreover, cycling outdoors, especially 
+              in natural surroundings, can have positive effects on mental health by reducing anxiety and improving focus. 
+              This activity can also serve as a social opportunity when done with friends or groups, 
+              thus providing not only physical benefits but also enhancing emotional and social well-being. 
+
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="yoga" class="data-ada-img">
+        <h2>Yoga</h2>
+        <div class="posisi">
+          <div class="image">
+            <img src="/assets/images/olahraga/Yoga.jpg.webp" alt="yoga">
+          </div>
+          <div class="isi-dalam">
+            <p>
+              Yoga can help improve poor posture by focusing on the spinal axis, 
+              stretching tense muscles, and enhancing body awareness. Regular yoga practice 
+              allows stiff and weak muscles to become more flexible and strong, particularly 
+              in the back, neck, and shoulders, which are often affected by poor posture.
+              <br><br>
+              
+              Additionally, yoga teaches proper breathing techniques and aligns movement with breath, 
+              which can help reduce stress and tension in the muscles. With improved posture and 
+              good balance, yoga can help prevent various health issues such as back and neck pain, 
+              as well as spinal disorders. This practice also enhances joint flexibility and mobility, 
+              contributing to injury prevention. Overall, yoga is beneficial not only for physical 
+              health but also for mental health by promoting tranquility and concentration.
+              <br><br>
+              
+              More than just a physical exercise, yoga plays an essential role in enhancing emotional 
+              and mental balance. The practices of meditation and deep breathing in yoga help calm the 
+              mind, reduce anxiety, and improve focus. By uniting the body and mind, yoga creates a space 
+              for introspection, which can assist in managing daily stress. Furthermore, yoga has been 
+              shown to be effective in improving sleep quality, helping the body and mind to relax, thus 
+              enhancing regeneration and recovery. With these comprehensive benefits, yoga is an 
+              ideal choice for maintaining a balance between physical and mental health.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="berenang" class="data-ada-img">
+        <h2>Swimming</h2>
+        <div class="posisi">
+          <div class="image">
+            <img src="/assets/images/olahraga/berenang.jpeg" alt="Berenang">
+          </div>
+          <div class="isi-dalam">
+            <p>
+              Swimming, in addition to boosting metabolism, is also known to help 
+              improve posture issues while training muscle endurance. The movements in swimming, 
+              such as freestyle, backstroke, or breaststroke, involve almost all body muscles, 
+              especially the back, arms, and legs, making it highly effective in building muscles 
+              and enhancing joint flexibility. Good posture is automatically developed through 
+              swimming movements that encourage the spine to stay aligned and straight.
+              <br><br>
+
+              However, the benefits of swimming do not stop there. Swimming has an incredible 
+              impact on mental health. Activities in the water can help reduce levels of stress, anxiety, 
+              and depression. The sensation of floating in water provides a feeling of relaxation and calmness, 
+              which helps lower blood pressure and improve mood. Swimming can also enhance sleep quality, 
+              as the body feels fresher and more relaxed after a swimming session.
+              <br><br>
+              
+              Additionally, swimming is one of the safest exercises for the joints. Since the body is 
+              supported by water, the pressure on the joints is significantly reduced, making it an ideal choice 
+              for those with joint issues or those looking to avoid injuries. This makes swimming very 
+              suitable for people of all ages, including the elderly and those in recovery from injuries. 
+              By swimming regularly, not only does physical fitness improve, but it can also help enhance 
+              body balance and movement coordination, which is beneficial in daily activities.
+            </p>  
+          </div>
+        </div>
+      </section>
+
+      <section id="badmin" class="data-ada-img">
+        <h2>Badminton</h2>
+        <div class="posisi">
+          <div class="image">
+            <img src="/assets/images/olahraga/badmin.jpg" alt="Badminton">
+          </div>
+          <div class="isi-dalam">
+            <p>
+              This exercise helps you become physically healthier by strengthening muscles, 
+              sharpening reflexes, and aiding in weight loss. Every movement in this exercise 
+              involves various body muscles, both upper and lower, which will gradually improve 
+              strength and physical endurance. Additionally, with the presence of quick movements 
+              and strategies that must be applied, this exercise is also very effective in enhancing 
+              reflexes and hand-eye coordination, making you more agile in responding to situations.
+              <br><br>
+              
+              In terms of calorie burning, this exercise is also an excellent choice for those 
+              looking to lose weight. The dynamic activity and high intensity help boost the body's metabolism, 
+              which continues to work even after the exercise session is completed. This will help the body 
+              burn fat more efficiently and maintain an ideal weight.
+              <br><br>
+              
+              Besides physical benefits, this exercise also positively impacts mental health. 
+              During exercise, the body releases endorphins, known as the happiness hormone, which can help reduce 
+              stress and improve mood. By focusing on strategies and coordination, this exercise also trains 
+              concentration and quick-thinking skills. For those who practice it regularly, 
+              this exercise not only helps keep the body fit but also enhances 
+              self-confidence and mental resilience in facing challenges.
+            </p>
+            
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/scripts/health-benefits.js"></script>    
+    <script src="/scripts/theme-toggle.js"></script>
+    <script src="/scripts/footer.js"></script>
+    <script src="/scripts/backToTopButton.js"></script>
+  </body>
+</html>

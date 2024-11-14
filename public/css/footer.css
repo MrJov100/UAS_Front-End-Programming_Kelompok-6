@@ -1,0 +1,133 @@
+/* Footer */
+footer {
+  background-color: #3db72d;
+  color: #fff;
+  padding: 20px 0;
+  margin-top: 80px;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  width: 170px;
+}
+
+.footer-links h4,
+.company-info h4,
+.Call-Us h4 {
+  font-size: 1.2em;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.company-info p {
+  color: white;
+}
+
+.company-info h5 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.footer-links ul li,
+.company-info p {
+  margin-bottom: 15px;
+}
+
+.footer-links ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 10px;
+  color: #fff;
+}
+
+.footer-bottom p {
+  margin: 3px 0;
+  font-size: 0.9em;
+  color: white;
+}
+
+.footer-bottom a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.Call-icons {
+  display: flex;
+  flex-direction: column;
+}
+
+.Call-icons a {
+  color: white;
+  text-decoration: none;
+}
+
+.Call-icons i {
+  margin-right: 8px;
+}
+
+.Call-Us h4 {
+  font-size: 1.2em;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 991px) {
+  .footer {
+    padding: 2rem 3%;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-logo {
+    margin-bottom: 20px;
+  }
+
+  .company-info,
+  .Call-Us {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .footer-links {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .Call-icons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .footer-container {
+    justify-content: space-evenly;
+  }
+}

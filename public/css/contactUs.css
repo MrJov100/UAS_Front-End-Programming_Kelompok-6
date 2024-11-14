@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f3eeee;
+  color: #000000;
+  line-height: 1.6;
+  height: 100%;
+}
+
+.contactUs-dalam {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  text-align: center;
+  margin-top: 150px;
+}
+
+.contactUs-dalam h2 {
+  margin-bottom: 0px;
+}
+
+.contactUs-dalam h3 {
+  margin-top: 0;
+  margin-bottom: 18px;
+}
+
+.isidalam {
+  font-weight: 70;
+  font-size: 17px;
+}
+
+i {
+  color: rgb(90, 113, 134);
+}

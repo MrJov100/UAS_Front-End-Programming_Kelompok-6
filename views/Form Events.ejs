@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/theme.css" />
+    <!-- Path CSS yang sama seperti di index.ejs -->
+  </head>
+
+  <body>
+    <div class="form-container">
+      <h1>Formulir Registrasi</h1>
+      <form action="/forms" method="POST" enctype="multipart/form-data">
+        <h2>Data Diri Peserta</h2>
+
+        <div class="form-group">
+          <label for="foto_diri">Pilih Foto Diri:</label>
+          <input type="file" name="foto_diri" accept="image/*" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="nama_lengkap">Nama Lengkap:</label>
+          <input type="text" name="nama_lengkap" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Jenis Kelamin:</label>
+          <div class="radio-group">
+            <input type="radio" name="jenis_kelamin" value="laki-laki" required> <label>Laki-laki</label>
+            <input type="radio" name="jenis_kelamin" value="perempuan" required> <label>Perempuan</label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="usia">Usia:</label>
+          <input type="number" name="usia" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="nomor_telepon">Nomor Telepon:</label>
+          <input type="tel" name="nomor_telepon" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Alamat Email:</label>
+          <input type="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="alamat">Alamat Tempat Tinggal:</label>
+          <textarea name="alamat" required></textarea>
+        </div>
+        
+        <h2>Kategori Acara</h2>
+        <div class="form-group">
+          <label for="kategori_acara">Pilih Kategori Acara:</label>
+          <select name="kategori_acara" required>
+            <option value="kategori1">Kategori 1</option>
+            <option value="kategori2">Kategori 2</option>
+            <option value="kategori3">Kategori 3</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="riwayat_kesehatan">Riwayat Kesehatan Singkat:</label>
+          <textarea name="riwayat_kesehatan" required></textarea>
+        </div>
+        
+        <div class="setuju-data">
+          <label>
+            <input type="checkbox" name="persetujuan" required> Saya setuju dengan penggunaan data pribadi saya
+          </label>
+        </div>
+        
+        <button type="submit">Daftar</button>
+      </form>
+    </div>
+  </body>
+</html>
+
