@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style-workout.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/backToTopButton.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".left-navbar a").forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute("href").substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
+            }
+          });
+        });
+    });
+    </script> -->
+  </head>
+  <body>
+    <!-- TOMBOL Back to Top -->
+    <button id="backToTopBtn" class="back-to-top">
+      <img
+        src="/assets/images/green-up.png"
+        alt="Back to Top"
+        id="backToTopImg"
+      />
+    </button>
+
+    <nav id="navbar">
+      <input type="checkbox" id="check" />
+
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <a href="index.html" id="logo"
+        ><img src="/assets/images/logo.png" alt="FitSteps Logo"
+      /></a>
+
+      <div class="navbar-biasa">
+        <a href="/">Home</a>
+        <a href="/tips-workout">Tips & Workout</a>
+        <a href="/trendy-shoes">Trendy Shoes</a>
+        <a href="/health-benefits">Health Benefits</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/events">Upcoming Events</a>
+
+        <% if (loggedIn) { %>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+        <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Daftar</a>
+        <% } %>
+
+        <!-- Tombol Mode Terang/Gelap -->
+        <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+      </div>
+
+      <a href="index.html" id="moto"
+        ><img src="/assets/images/moto.png" alt="FitSteps Moto"
+      /></a>
+    </nav>
+
+    <header>
+      <div class="sidebar">
+        <i class="fas fa-bars" id="menu-icons"></i>
+        <!-- <i class="fas fa-times" id="close-btn"></i> -->
+        <div class="left-navbar">
+          <a href="#" onclick="scrollToSection('warm-up')">Warming-Up</a>
+          <a href="#" onclick="scrollToSection('arm')">Arm Exercise</a>
+          <a href="#" onclick="scrollToSection('leg')">Leg Exercise</a>
+          <a href="#" onclick="scrollToSection('back')">Back Exercise</a>
+          <a href="#" onclick="scrollToSection('chest')">Chest Exercise</a>
+          <a href="#" onclick="scrollToSection('abs')">ABS Exercise</a>
+          <a href="#" onclick="scrollToSection('cool-down')">Cooling-Down</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-container">
+      <section id="warm-up" class="workout-section">
+        <h2>Warming Up</h2>
+        <div class="grids">
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="front-card">
+                <div class="image">
+                  <img src="/assets/images/workout/jogging.jpg" alt="Jogging" />
+                </div>
+              </div>
+              <div class="back-card">
+                <div class="image-back">
+                  <img
+                    src="/assets/images/workout/warming-up.gif"
+                    alt="warming-up-gif"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="desc">
+            <h5>Why do we need to warming up before exercise?</h5>
+            <p>
+              Warming up before exercise is a crucial step that many overlook,
+              but it plays significant role in preparing the body for more
+              intense physical activity. It gradually raises your heart rate,
+              increases blood flow to the muscles, and enhances flexibility,
+              which in turn can improve performance and injuries. By Warming up,
+              you're allowing the muscles to loosen up and become more flexible,
+              thus can reduce the risk of injuries such as muscle cramps,
+              strains, or sprains. When you exercise without warming-up, your
+              muscles are "cold" and stiff, making them more susceptible to
+              injury.
+            </p>
+            <h5>Steps:</h5>
+            <ul>
+              <li>Light Jogging (3-5 minutes)</li>
+              <li>Arm Circles (3-5 minutes)</li>
+              <li>High Knees (2-3 minutes)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="arm" class="workout-section">
+        <h2>Arm Exercise</h2>
+        <div class="grids">
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="front-card">
+                <div class="image">
+                  <img src="/assets/images/workout/push-up.jpg" alt="push-up" />
+                </div>
+              </div>
+              <div class="back-card">
+                <div class="image-back">
+                  <img
+                    src="/assets/images/workout/push-up.gif"
+                    alt="push-up-gif"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="desc">
+            <p>
+              Strengthening your arms is not only for enhancing muscle
+              definition but also for improving overall upper body strength. Arm
+              exercises pla a vital role in building endurance and making daily
+              activities like lifting, pushing, and pulling much easier. A
+              regular arm workouts regimen not only builds muscle but also helps
+              in boosting stamina and reducing the likelihood of injury by
+              increasing the support for the upper body. Push-ups are one of the
+              most effective and accessible exercises for developing arm
+              strength, while also engaging other muscle groups such as the
+              chest, shoulders, and core.
+            </p>
+            <h5>Steps:</h5>
+            <ul>
+              <li>
+                Start in a plank position with your hands placed slightly wider
+                than shoulder-width apart.
+              </li>
+              <li>
+                Lower your body towards the ground while keeping your elbows
+                close to your body.
+              </li>
+              <li>
+                Push through your palms to raise your body back to the starting
+                position. (10-15 repetition)
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="leg" class="workout-section">
+        <h2>Leg Exercise</h2>
+        <div class="grids">
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="front-card">
+                <div class="image">
+                  <img src="../assets/images/workout/squats.png" alt="squats" />
+                </div>
+              </div>
+              <div class="back-card">
+                <div class="image-back">
+                  <img
+                    src="../assets/images/workout/squats.gif"
+                    alt="squats-gif"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="desc">
+            <p>
+              Strong legs are fundamental component of overall physical fitness
+              and endurance. Leg workouts can improve not only muscle strength
+              but also balance, stability, and coordination. Developinh your leg
+              muscles also enhances athletic performance, making activities such
+              as running, jumping, or climbing more efficient. Squats are among
+              the best exercises for targeting the lower body, as they work the
+              major muscle groups, including quadriceps, hamstrings, and glutes.
+              Additionally, squats helps strengthen the core and improve
+              posture, contributing to overall body functionality.
+            </p>
+            <h5>Steps:</h5>
+            <ul>
+              <li>
+                Stand with your feet shoulder-width apart, with your toe
+                spointing slightly outward.
+              </li>
+              <li>
+                Keep your arms at your sides or ectend them straight in front of
+                you for balance.
+              </li>
+              <li>
+                Begin lowering your body by bending at the hips and knees as if
+                you sitting back into a chair.
+              </li>
+              <li>
+                As you squat, make sure the weight is on you rheels and not your
+                toes (10-15 repetition).
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="back" class="workout-section">
+        <h2>Back Exercise</h2>
+        <div class="grids">
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="front-card">
+                <div class="image">
+                  <img
+                    src="../assets/images/workout/bent-over-row.jpg"
+                    alt="bent over row"
+                  />
+                </div>
+              </div>
+              <div class="back-card">
+                <div class="image-back">
+                  <img
+                    src="../assets/images/workout/bent-over-row.gif"
+                    alt="bent-over-row-gif"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="desc">
+            <p>
+              A strong back is vital for maintaining good posture, balance, and
+              overall strength. Including back exercises in your workout routine
+              helps improve mobility and reduces the risk of injury, especially
+              in the lower back. Strengthening back muscles can also alleviate
+              back pain and imporve your posture, which is important for daily
+              activities and sports performance. The bent-over row is an
+              excellent exercise for targeting the upper back, shoulders, and
+              arms, promoting a well-rounded upper body workout.
+            </p>
+            <h5>Steps:</h5>
+            <ul>
+              <li>
+                Grab a weight and stand with feet hip-width apart, knees
+                slightly bent.
+              </li>
+              <li>
+                Hinge at the hips, keeping your back straigth and let the
+                weights hang down.
+              </li>
+              <li>
+                Pull the weight toward your ribs, keeping elbows close to your
+                body.
+              </li>
+              <li>
+                Lower slowly back to the starting position, controlling the
+                movement (8-12 repetition).
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="chest" class="workout-section">
+        <h2>Chest Exercise</h2>
+        <div class="grids">
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="front-card">
+                <div class="image">
+                  <img
+                    src="/assets/images/workout/bench-press.jpg"
+                    alt="bench press"
+                  />
+                </div>
+              </div>
+              <div class="back-card">
+                <div class="image-back">
+                  <img
+                    src="/assets/images/workout/bench-press.gif"
+                    alt="benc-press-gif"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="desc">
+            <p>
+              Building a strong chest not only enhances upper body strength but
+              also improves your overall physical appearance and athletic
+              performance. Chest exercises, such as the bench press, target the
+              pectoral muscles, which play a crucial role in pushing movements.
+              By strengthening these muscles, you improve your ability to
+              perform tasks like pushing, lifting, or carrying heavy objects,
+              while also boosting muscle mass and endurance in the upper body.
+            </p>
+            <h5>Steps:</h5>
+            <ul>
+              <li>
+                Lie flat on a bench with your feet firmly on the ground. Grip
+                the bar slightly wider than shoulder-width apart.
+              </li>
+              <li>
+                Unrack the bar and slowly lower it towards you chest, keeping
+                your elbows at 45 degrees angle.
+              </li>
+              <li>
+                Push the bar back up to the starting position by extending your
+                arms fully without locking your elbows.
+              </li>
+              <li>
+                Continue the motion, focusing on control and maintaining proper
+                form (8-12 repetition)
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="abs" class="workout-section">
+        <h2>Abs Exercise</h2>
+        <div class="grids">
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="front-card">
+                <div class="image">
+                  <img src="/assets/images/workout/plank.jpg" alt="plank" />
+                </div>
+              </div>
+              <div class="back-card">
+                <div class="image-back">
+                  <img src="/assets/images/workout/plank.gif" alt="plank-gif" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="desc">
+            <p>
+              A strong core is essential for maintaining balance, stability, and
+              overall strength. Abs exercises not only help sculpt your
+              midsection but also support your posture and reduce the risk of
+              injury during other workouts. One of the effective ways to
+              strengthen tour core is through the plank exercise. The plank not
+              only targets the abdominal muscles but also engages the shoulders,
+              back, and glutes.
+            </p>
+            <h5>Steps:</h5>
+            <ul>
+              <li>
+                Begin by getting into a push-up position with your forearms on
+                the floor and elbows directly beneath your shoulders.
+              </li>
+              <li>
+                Keep your body in a straight line from head to heels, avoiding
+                any sagging or arching in your back.
+              </li>
+              <li>
+                Tighten your abdominal muscles and hold this positioning,
+                keeping your gaze downward.
+              </li>
+              <li>
+                Maintain the plank for 20-30 seconds, gradually increasing the
+                time as you build strength. (3 sets of 20-30 seconds)
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="cool-down" class="workout-section">
+        <h2>Cooling Down</h2>
+        <div class="grids">
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="front-card">
+                <div class="image">
+                  <img
+                    src="/assets/images/workout/deep-breathing.jpg"
+                    alt="Deep Breathing"
+                  />
+                </div>
+              </div>
+              <div class="back-card">
+                <div class="image-back">
+                  <img
+                    src="/assets/images/workout/cooling-down.gif"
+                    alt="cooling-down-gif"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="desc">
+            <h5>Why do we need to cooling down after exercise?</h5>
+            <p>
+              Cooling down after exercise is just as important as warming up. It
+              helps your body gradually return to its resting state by lowering
+              your heart rate and blood pressure in a controlled manner. Cooling
+              down also aids in preventing muscke stiffness and soreness by
+              promoting blodd flow to remove waste products like lactic acid.
+              Skipping this step could leave your muscles tense and fatigued,
+              making recovery longer andincreasing the likelihood of
+              post-exercise discomfort. Cooling down exercises are simple and
+              can include stretches and light movements to help release muscle
+              tension and improve flexibility.
+            </p>
+            <h5>Steps:</h5>
+            <ul>
+              <li>Walking (5-10 minutes)</li>
+              <li>Stretching (hold for 10-15 minutes)</li>
+              <li>Deep breathing (3-5 minutes)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/scripts/theme-toggle.js"></script>
+    <script src="/scripts/backToTopButton.js"></script>
+    <script src="/scripts/footer.js"></script>
+    <script src="/scripts/nav-tips-workout.js"></script>
+  </body>
+</html>

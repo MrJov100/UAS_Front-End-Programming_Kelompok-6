@@ -1,0 +1,349 @@
+@font-face {
+  font-family: "BrightDEMO";
+  src: url("../assets/fonts/Bright DEMO.otf") format(truetype);
+}
+
+@font-face {
+  font-family: "Rafgins";
+  src: url("../assets/fonts/Rafgins-Regular.ttf") format(truetype);
+}
+
+@font-face {
+  font-family: "Cafe";
+  src: url("../assets/fonts/Louis George Cafe.ttf") format(truetype);
+}
+
+@font-face {
+  font-family: "Market";
+  src: url("../assets/fonts/Market_Deco.ttf") format(truetype);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #ffff;
+  color: #000000;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  height: 100%;
+  display: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TRENDY SHOES */
+
+#hero {
+  background-image: url("../assets/images/trendy/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: calc(100vw * 43 / 100);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px;
+}
+
+#hero h1,
+h2 {
+  text-align: left;
+  font-size: 2em;
+  margin-bottom: 0px;
+  line-height: 1;
+}
+
+#hero h1 {
+  color: #fff;
+  font-family: "Rafgins", sans-serif;
+  font-size: 5em;
+  letter-spacing: 4px;
+  margin-top: 50px;
+}
+
+#hero h2 {
+  color: #339926;
+  font-family: "BrightDEMO", sans-serif;
+  font-size: 3.3em;
+  letter-spacing: 2px;
+}
+
+#hero p {
+  color: #000;
+  font-family: "Cafe", sans-serif;
+  font-size: 18px;
+}
+
+.shoe-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.shoe-layout {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 25px;
+  margin-bottom: 25px;
+  border-radius: 50px;
+  box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.5), -5px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.left-section {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.portrait-img {
+  margin-left: 50px;
+  width: 270px;
+  height: auto;
+  border-radius: 50px;
+  min-width: 225px;
+}
+
+.right-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 10px;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.right-section h3 {
+  border-radius: 10px;
+  text-align: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 900px;
+  font-family: "Cafe", sans-serif;
+  font-size: 40px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.rating-text {
+  font-size: 20px;
+}
+
+.rating-icon img {
+  width: 1em;
+  height: auto;
+  padding-left: 5px;
+  padding-bottom: 2px;
+  vertical-align: middle;
+}
+
+.shoe-images {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  gap: 50px;
+}
+
+.shoe-images img {
+  width: 38%;
+  height: auto;
+}
+
+.description {
+  font-size: 18px;
+  width: 80%;
+  margin-bottom: 30px;
+}
+
+.disclaimer {
+  text-align: center;
+  color: rgb(94, 93, 93);
+  padding-bottom: 25px;
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .shoe-layout {
+    flex-direction: column;
+  }
+
+  .shoe-images {
+    gap: 0;
+  }
+
+  #hero h1 {
+    margin-top: 100px;
+  }
+}
+
+.close-popup-btn {
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  color: white;
+}
+
+
+.heart-icon {
+  position: absolute; 
+  top: 20px; 
+  left: 50px; 
+  font-size: 24px; 
+  cursor: pointer; 
+  color: black;
+} 
+
+.favorite-btn.liked {
+  color: red;
+}
+
+.heart-icon .far
+{ 
+  color: black; 
+}
+
+.heart-icon .fa
+{ 
+  color: red; 
+}
+
+.fixed-heart-button 
+{ 
+  position: fixed; 
+  right: 35px; 
+  top: 120px; 
+  font-size: 30px; 
+  cursor: pointer; 
+  color: red; 
+  z-index: 1000; 
+  animation: shake 1.8s infinite;
+} 
+
+@keyframes shake {
+  0% {
+    transform: rotateX(-15deg);
+  }
+
+  25% {
+    transform: rotate(15deg);
+  }
+
+  50% {
+    transform: rotate(-15deg);
+  }
+
+  60% {
+    transform: rotate(10deg);
+  }
+
+  70% {
+    transform: rotate(-10deg);
+  }
+
+  75% {
+    transform: rotate(5deg);
+  }
+
+  80% {
+    transform: rotate(-10deg);
+  }
+
+  85% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.favorite-popup { 
+  display: none; 
+  position: fixed; 
+  top: 50%; 
+  left: 50%; 
+  width: 90vw;
+  border-radius: 50px;
+  transform: translate(-50%, -50%); 
+  background-color: rgba(0,0,0,0.5);
+  padding: 20px;
+  z-index: 1002;
+}
+
+.favorite-popup h3 {
+  text-align: center;
+  color: #4bde38;
+  font-family: 'Cafe', sans-serif;
+  padding-bottom: 10px;
+}
+
+.favorite-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 5px;
+  overflow-x: scroll;
+  padding-bottom: 20px;
+}
+
+.favorite-list img {
+  display: flex;
+  max-width: 200px;
+  height: auto;
+  border-radius: 50px;
+}
+
+.favorite-list .shoe-name{
+  max-width: 100px;
+  text-align: center;
+  word-wrap: break-word;
+  color: #fff;
+}
+
+.favorite-list::-webkit-scrollbar{
+  display: none;
+}
+
+@media (max-width: 768px){
+
+  .favorite-popup {
+    margin-top: 50px;
+    margin-bottom: 10px;
+    max-height: 78vw;
+    width: 50vw;
+    overflow-y: scroll;
+  }
+
+  .favorite-popup::-webkit-scrollbar{
+    display: none;
+  }
+
+  .favorite-list {
+    flex-direction: column;
+  }
+
+  .favorite-list img {
+    width: 150px;
+    border-radius: 25px;
+  }
+}

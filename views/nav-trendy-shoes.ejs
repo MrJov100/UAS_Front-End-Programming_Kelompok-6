@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style-trendy.css" />
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/backToTopButton.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+  </head>
+  <body>
+    <!-- TOMBOL Back to Top -->
+    <button id="backToTopBtn" class="back-to-top">
+      <img
+        src="/assets/images/green-up.png"
+        alt="Back to Top"
+        id="backToTopImg"
+      />
+    </button>
+
+    <!-- TOMBOL Favorite -->
+    <div class="fixed-heart-button">
+      <i class="fa fa-heart" aria-hidden="true"></i>
+    </div>
+    <div class="favorite-popup" id="favoritePopup">
+      <h3 id="popup-title">Your Favorite</h3>
+      <span id="close-popup" class="close-popup-btn">&times;</span>
+      <div class="favorite-list"></div>
+    </div>
+
+    <!-- Favorite END -->
+
+    <nav id="navbar">
+      <input type="checkbox" id="check" />
+
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <a href="/" id="logo"
+        ><img src="/assets/images/logo.png" alt="FitSteps Logo"
+      /></a>
+
+      <div class="navbar-biasa">
+        <a href="/">Home</a>
+        <a href="/tips-workout">Tips & Workout</a>
+        <a href="/trendy-shoes">Trendy Shoes</a>
+        <a href="/health-benefits">Health Benefits</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/events">Upcoming Events</a>
+
+        <% if (loggedIn) { %>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+        <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Daftar</a>
+        <% } %>
+
+        <!-- Tombol Mode Terang/Gelap -->
+        <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+      </div>
+
+      <a href="/" id="moto"
+        ><img src="/assets/images/moto.png" alt="FitSteps Moto"
+      /></a>
+    </nav>
+
+    <section id="hero">
+      <h1>Fit Your Style, Step Ahead</h1>
+      <h2>The Perfect Blend of Fitness and Fashion</h2>
+      <p>Stay on-trend while you conquer your fitness goals</p>
+      <p>
+        Discover your unique style with our selection of the Top 5 Trendy
+        sneakers
+      </p>
+    </section>
+
+    <section class="shoe-list">
+      <section class="shoe-layout">
+        <div class="heart-icon">
+          <i class="far fa-heart favorite-btn" aria-hidden="true"></i>
+        </div>
+        <div class="left-section">
+          <img
+            src="/assets/images/trendy/Stuart Weitzman Sofia Richie Grainge.jpg"
+            alt="Sofia Richia Grainge"
+            class="portrait-img"
+          />
+        </div>
+        <div class="right-section">
+          <h3>Stuart Weitzman Leather Mesh Trainer</h3>
+          <div class="rating">
+            <div class="rating-text">
+              <p>Ratings: 3.7 / 5</p>
+            </div>
+            <div class="rating-icon">
+              <img src="/assets/images/trendy/star.png" alt="star" />
+            </div>
+          </div>
+          <div class="shoe-images">
+            <img
+              src="/assets/images/trendy/Stuart Weitzman Chunky Sole Sneakers.jpg"
+              alt="v0"
+            />
+            <img
+              src="/assets/images/trendy/Stuart Weitzman Chunky Sole Sneakers v1.jpg"
+              alt="v1"
+            />
+          </div>
+          <div class="description">
+            <p>
+              Sofia Richie Grainge has been seen multiple times in Stuart
+              Weitzman's Chunky Sole Sneakers, blending her chic, casual
+              aesthetic with these trendy shoes.The sporty design is ideal for
+              those who want an elevated sneaker that's versatile enough for
+              casual day wear or light, athletic activities.
+            </p>
+          </div>
+        </div>
+        <!-- right-section-->
+      </section>
+      <!--shoe layout-->
+
+      <section class="shoe-layout">
+        <div class="heart-icon">
+          <i class="far fa-heart favorite-btn" aria-hidden="true"></i>
+        </div>
+        <div class="left-section">
+          <img
+            src="/assets/images/trendy/New Balance 530 Adut Akech Bior.jpg"
+            alt="Sofia Richia Grainge"
+            class="portrait-img"
+          />
+        </div>
+        <div class="right-section">
+          <h3>New Balance 530</h3>
+          <div class="rating">
+            <div class="rating-text">
+              <p>Ratings: 4.5 / 5</p>
+            </div>
+            <div class="rating-icon">
+              <img src="/assets/images/trendy/star.png" alt="star" />
+            </div>
+          </div>
+          <div class="shoe-images">
+            <img src="/assets/images/trendy/New Balance 530.jpg" alt="v0" />
+            <img src="/assets/images/trendy/New Balance 530 v1.jpg" alt="v1" />
+          </div>
+          <div class="description">
+            <p>
+              Supermodel Adut Akech Bior has been seen sporting the New Balance
+              530, a sneaker that blends retro style with modern comfort, and
+              was inspired by the 1990s running shoes. Its sleek design and
+              high-quality materials provide optimal comfort for both athletic
+              activities and everyday wear.
+            </p>
+          </div>
+        </div>
+        <!-- right-section-->
+      </section>
+      <!--shoe layout-->
+
+      <section class="shoe-layout">
+        <div class="heart-icon">
+          <i class="far fa-heart favorite-btn" aria-hidden="true"></i>
+        </div>
+        <div class="left-section">
+          <img
+            src="/assets/images/trendy/Wales Bonner x Adidas Gigi Hadid.jpg"
+            class="portrait-img"
+          />
+        </div>
+        <div class="right-section">
+          <h3>Wales Bonner X Adidas</h3>
+          <div class="rating">
+            <div class="rating-text">
+              <p>Ratings: 4.9 / 5</p>
+            </div>
+            <div class="rating-icon">
+              <img src="/assets/images/trendy/star.png" alt="star" />
+            </div>
+          </div>
+          <div class="shoe-images">
+            <img
+              src="/assets/images/trendy/Wales Bonner x Adidas.jpg"
+              alt="v0"
+            />
+            <img
+              src="/assets/images/trendy/Wales Bonner x Adidas v1.jpg"
+              alt="v1"
+            />
+          </div>
+          <div class="description">
+            <p>
+              Queen of street style, Gigi Hadid has been sporting Wales Bonner X
+              Adidas in New York. Inspired by African culture and vintage
+              sportswear, these sneakers seamlessly blend sportiness and
+              sophistication, making them a must-have for any fashion-forward
+              wardrobe.
+            </p>
+          </div>
+        </div>
+        <!-- right-section-->
+      </section>
+      <!--shoe layout-->
+
+      <section class="shoe-layout">
+        <div class="heart-icon">
+          <i class="far fa-heart favorite-btn" aria-hidden="true"></i>
+        </div>
+        <div class="left-section">
+          <img
+            src="/assets/images/trendy/Loewe x On Running Cloudtilts Jennifer Lopez.jpg"
+            class="portrait-img"
+          />
+        </div>
+        <div class="right-section">
+          <h3>ON Cloudrift</h3>
+          <div class="rating">
+            <div class="rating-text">
+              <p>Ratings: 4.6 / 5</p>
+            </div>
+            <div class="rating-icon">
+              <img src="/assets/images/trendy/star.png" alt="star" />
+            </div>
+          </div>
+          <div class="shoe-images">
+            <img
+              src="/assets/images/trendy/Loewe x On Running Cloudtilts.jpg"
+              alt="v0"
+            />
+            <img
+              src="/assets/images/trendy/Loewe x On Running Cloudtilt v1.jpg"
+              alt="v1"
+            />
+          </div>
+          <div class="description">
+            <p>
+              Jennifer Lopez, a true style icon, has embraced the Loewe X On
+              Cloudrift sneakers. These shoes create a perfect blend of
+              practically and elegance. Loewe X On Cloudrift sneakers offer
+              comfort for her active lifestyle while adding a touch of luxury,
+              showcasing the ultimate sporty chic look.
+            </p>
+          </div>
+        </div>
+        <!-- right-section-->
+      </section>
+
+      <section class="shoe-layout">
+        <div class="heart-icon">
+          <i class="far fa-heart favorite-btn" aria-hidden="true"></i>
+        </div>
+        <div class="left-section">
+          <img
+            src="/assets/images/trendy/Nike V2K Kaia Gerber.jpg"
+            class="portrait-img"
+          />
+        </div>
+        <div class="right-section">
+          <h3>Nike V2K</h3>
+          <div class="rating">
+            <div class="rating-text">
+              <p>Ratings: 4.5 / 5</p>
+            </div>
+            <div class="rating-icon">
+              <img src="/assets/images/trendy/star.png" alt="star" />
+            </div>
+          </div>
+          <div class="shoe-images">
+            <img src="/assets/images/trendy/Nike V2K.jpg" alt="v0" />
+            <img src="/assets/images/trendy/NIKE V2K v1.jpg" alt="v1" />
+          </div>
+          <div class="description">
+            <p>
+              Known for her street-style influence, Kaia Gerber regularly
+              chooses the NIKE V2K, a sneaker with a chunky, retro-inspired
+              silhouette. These sneakers feature a bold design and vintage feel,
+              along with functional elements from the early 2000s running
+              archive, providing cushioning to keep you on your feet all day
+            </p>
+          </div>
+        </div>
+        <!-- right-section-->
+      </section>
+
+      <div class="disclaimer">
+        <p>
+          All product ratings are sourced from Nordstrom's official website.
+        </p>
+        <p></p>
+      </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/scripts/theme-toggle.js"></script>
+    <script src="/scripts/backToTopButton.js"></script>
+    <script src="/scripts/footer.js"></script>
+    <script src="/scripts/favorite-shoes.js"></script>
+  </body>
+</html>
