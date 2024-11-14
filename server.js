@@ -13,7 +13,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "FitSteps",
-  password: "ce171431",
+  password: "jovandi",
   port: 5432,
 });
 
@@ -65,6 +65,7 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/profile", checkAuth, async (req, res) => {
+  const loggedIn = req.session.userId ? true : false;
   const userId = req.session.userId;
   try {
     // Ambil data pengguna dari database
@@ -79,6 +80,7 @@ app.get("/profile", checkAuth, async (req, res) => {
         title: "Halaman Profil",
         namaLengkap: user.nama_lengkap,
         email: user.email,
+        loggedIn: loggedIn,
       });
     } else {
       res.status(404).send("User not found.");
@@ -88,6 +90,14 @@ app.get("/profile", checkAuth, async (req, res) => {
     res.status(500).send("Error fetching user profile.");
   }
 });
+
+// app.get("/profile", (req, res) => {
+//   const loggedIn = req.session.userId ? true : false;
+//   res.render("profile", {
+//     title: "FitSteps: Profile",
+//     loggedIn: loggedIn,
+//   });
+// });
 
 // Route untuk melayani konten footer
 app.get("/footer", (req, res) => {
@@ -139,14 +149,6 @@ app.get("/trendy-shoes", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
   res.render("nav-trendy-shoes", {
     title: "FitSteps: Trendy Shoes",
-    loggedIn: loggedIn,
-  });
-});
-
-app.get("/profile", (req, res) => {
-  const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
-  res.render("profile", {
-    title: "FitSteps: Profile",
     loggedIn: loggedIn,
   });
 });
