@@ -15,7 +15,7 @@ const pool = new Pool({
   database: "FitSteps",
   password: "ShirleyUntar",
   port: 5432,
-});
+}); 
 
 // Konfigurasi multer untuk menyimpan file yang diunggah
 const storage = multer.diskStorage({
