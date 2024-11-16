@@ -43,6 +43,15 @@ app.use(
   })
 );
 
+// Middleware untuk memeriksa autentikasi
+function checkAuth(req, res, next) {
+  if (!req.session.userId) {
+    req.session.redirectTo = req.originalUrl; // Simpan URL tujuan
+    return res.redirect('/login');
+  }
+  next();
+}
+
 // Route untuk halaman index (halaman utama)
 app.get("/", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Mengecek session user
@@ -153,7 +162,7 @@ app.get("/trendy-shoes", (req, res) => {
   });
 });
 
-app.get("/forms", (req, res) => {
+app.get("/forms", checkAuth, (req, res) => {
   const loggedIn = req.session.userId ? true : false;
   res.render("Form Events", { 
     title: "Join Event Form" ,
@@ -226,13 +235,13 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-// Middleware untuk mengecek apakah user sudah login
-function checkAuth(req, res, next) {
-  if (!req.session.userId) {
-    return res.redirect("/login"); // Redirect ke halaman login jika belum login
-  }
-  next();
-}
+// // Middleware untuk mengecek apakah user sudah login
+// function checkAuth(req, res, next) {
+//   if (!req.session.userId) {
+//     return res.redirect("/login"); // Redirect ke halaman login jika belum login
+//   }
+//   next();
+// }
 
 // Tambahkan route untuk logout
 app.get("/logout", (req, res) => {
