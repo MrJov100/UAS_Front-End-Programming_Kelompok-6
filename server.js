@@ -13,7 +13,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "FitSteps",
-  password: "ShirleyUntar",
+  password: "ce171431",
   port: 5432,
 }); 
 
@@ -137,10 +137,14 @@ app.get("/health-benefits", (req, res) => {
   });
 });
 
-app.get("/tips-workout", (req, res) => {
+app.get("/fit-share", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
-  res.render("nav-tips-workout", {
-    title: "FitSteps: Workout Tips",
+  if (!loggedIn) {
+    return res.render("notloggedin", {title: "Not Logged In"});
+  }
+
+  res.render("nav-fit-share", {
+    title: "FitSteps: Fit Share",
     loggedIn: loggedIn,
   });
 });
