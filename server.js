@@ -137,16 +137,31 @@ app.get("/health-benefits", (req, res) => {
   });
 });
 
-app.get("/fit-share", (req, res) => {
-  const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
-  if (!loggedIn) {
-    return res.render("notloggedin", {title: "Not Logged In"});
-  }
+app.get("/fit-share", async (req, res) => {
+  try {
+    const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
+    if (!loggedIn) {
+      return res.render("notloggedin", {title: "Not Logged In"});
+    }
 
-  res.render("nav-fit-share", {
-    title: "FitSteps: Fit Share",
-    loggedIn: loggedIn,
-  });
+    const uploadsQuery = `
+      SELECT *
+      FROM uploads
+      INNER JOIN users
+      ON uploads.id_user = users.id
+      ORDER BY uploads.id DESC;
+    `;
+
+    const uploadResult = await pool.query(uploadsQuery);
+
+    res.render("nav-fit-share", {
+      title: "FitSteps: Fit Share",
+      uploads: uploadResult.rows,
+    });
+  } catch (error) {
+    console.error("Error fetching fit-share data:", error.message);
+    res.status(500).send("Error loading Fit Share page.");
+  }
 });
 
 app.get("/trendy-shoes", (req, res) => {
@@ -248,46 +263,6 @@ app.get("/logout", (req, res) => {
   });
 });
 
-// Halaman Upload (hanya dapat diakses jika login)
-app.get("/upload", checkAuth, async (req, res) => {
-  try {
-    // Check for user session ID
-    const userId = req.session.userId;
-    if (!userId) {
-      console.error("User ID not found in session.");
-      return res.redirect("/login");
-    }
-
-    // Fetch the user's full name
-    const userResult = await pool.query(
-      "SELECT nama_lengkap FROM users WHERE id = $1",
-      [userId]
-    );
-    if (userResult.rows.length === 0) {
-      console.error(`No user found with ID: ${userId}`);
-      return res.status(404).send("User not found.");
-    }
-
-    const user = userResult.rows[0];
-
-    // Fetch the uploads associated with the user
-    const uploadsResult = await pool.query(
-      "SELECT * FROM uploads WHERE id_user = $1",
-      [userId]
-    );
-
-    // Render the upload page with user details and uploads
-    res.render("upload", {
-      title: "Upload Foto dan Caption",
-      uploads: uploadsResult.rows,
-      namaLengkap: user.nama_lengkap, // Pass the user's full name
-    });
-  } catch (error) {
-    console.error("Error details:", error.message);
-    res.status(500).send("Error loading the upload page.");
-  }
-});
-
 // Proses Login
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -301,7 +276,7 @@ app.post("/login", async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       req.session.userId = user.id; // Menyimpan ID user di session
       req.session.namaLengkap = user.nama_lengkap; // Menyimpan Nama Lengkap di session
-      res.redirect("/upload"); // Setelah login berhasil, arahkan ke halaman upload
+      res.redirect("/"); // Setelah login berhasil, arahkan ke halaman upload
     } else {
       res.send("Email atau password salah.");
     }
@@ -313,10 +288,6 @@ app.post("/login", async (req, res) => {
 
 // Menangani unggahan foto dan caption
 app.post("/upload", upload.single("photo"), async (req, res) => {
-  if (!req.session.userId) {
-    return res.redirect("/login"); // Jika tidak login, redirect ke halaman login
-  }
-
   const { caption } = req.body;
   const photo = req.file ? req.file.filename : null;
 
@@ -332,8 +303,9 @@ app.post("/upload", upload.single("photo"), async (req, res) => {
     }
   }
 
-  res.redirect("/upload");
+  res.redirect("/fit-share");
 });
+
 
 app.post('/forms', upload.single('foto_diri'), async (req, res) => {
   const { nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan } = req.body;
