@@ -59,7 +59,16 @@
 
         <div class="form-group">
           <label for="nomor_telepon">Nomor Telepon:</label>
-          <input type="tel" name="nomor_telepon" required />
+          <div class="phone-input">
+            <select name="kode_negara" required>
+              <option value="+62">+62</option>
+              <option value="+1">+1</option>
+              <option value="+44">+44</option>
+              <option value="+61">+61</option>
+              <!-- Tambahkan kode negara lainnya sesuai kebutuhan -->
+            </select>
+            <input type="tel" name="nomor_telepon" required placeholder="Nomor Telepon" />
+          </div>
         </div>
 
         <div class="form-group">
@@ -71,6 +80,11 @@
           <label for="alamat">Alamat Tempat Tinggal:</label>
           <textarea name="alamat" required></textarea>
         </div>
+        
+        <div class="form-group">
+          <label for="riwayat_kesehatan">Riwayat Kesehatan Singkat:</label>
+          <textarea name="riwayat_kesehatan" required></textarea>
+        </div>
 
         <h2>Kategori Acara</h2>
         <div class="form-group">
@@ -80,11 +94,6 @@
             <option value="kategori2">Kategori 2</option>
             <option value="kategori3">Kategori 3</option>
           </select>
-        </div>
-
-        <div class="form-group">
-          <label for="riwayat_kesehatan">Riwayat Kesehatan Singkat:</label>
-          <textarea name="riwayat_kesehatan" required></textarea>
         </div>
 
         <div class="setuju-data">

@@ -35,6 +35,17 @@ form label {
   font-weight: bold;
 }
 
+.phone-input {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.phone-input select {
+  width: 100px; /* Atur lebar dropdown kode negara */
+  margin-right: 10px; /* Spasi antara dropdown dan input */
+}
+
 form input[type="text"],
 form input[type="email"],
 form input[type="tel"],
@@ -101,7 +112,7 @@ form button:hover {
   }
 
   h1{
-    margin-top: 450px;
+    margin-top: 460px;
   }
 
   form label {
