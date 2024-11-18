@@ -17,7 +17,11 @@
   /* TIPS AND WORKOUT */
 
   .content-container {
-    margin-top: 200px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+
+  #carouselSlidesOnly {
     margin-bottom: 100px;
   }
 
@@ -49,7 +53,6 @@
   }
 
   .popup-form {
-    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -59,6 +62,10 @@
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     padding: 20px;
     z-index: 999;
+  }
+
+  .popup-form.ng-show {
+    display: block;
   }
 
   .close-btn-tutup {

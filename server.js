@@ -91,14 +91,6 @@ app.get("/profile", checkAuth, async (req, res) => {
   }
 });
 
-// app.get("/profile", (req, res) => {
-//   const loggedIn = req.session.userId ? true : false;
-//   res.render("profile", {
-//     title: "FitSteps: Profile",
-//     loggedIn: loggedIn,
-//   });
-// });
-
 // Route untuk melayani konten footer
 app.get("/footer", (req, res) => {
   res.render("footer"); // Merender footer.ejs
@@ -161,6 +153,28 @@ app.get("/fit-share", async (req, res) => {
   } catch (error) {
     console.error("Error fetching fit-share data:", error.message);
     res.status(500).send("Error loading Fit Share page.");
+  }
+});
+
+app.get("/api/uploads", async (req, res) => {
+  try {
+    const uploadsQuery = `
+      SELECT uploads.*, users.nama_lengkap
+      FROM uploads
+      INNER JOIN users
+      ON uploads.id_user = users.id
+      ORDER BY uploads.id DESC;
+    `;
+
+    const uploadResult = await pool.query(uploadsQuery);
+    if (uploadResult.rows.length === 0) {
+      return res.json([]);
+    }
+
+    res.json(uploadResult.rows);
+  } catch (error) {
+    console.error("Error fetching uploads data:", error.message);
+    res.status(500).send("Error loading uploads page.");
   }
 });
 
