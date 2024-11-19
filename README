@@ -35,18 +35,19 @@ Langkah - langkah:
    );
 
    -- Tabel untuk isi form
-   CREATE TABLE forms (
-    id SERIAL PRIMARY KEY,
-    nama_lengkap VARCHAR(100),
-    jenis_kelamin VARCHAR(10),
-    usia INTEGER,
-    nomor_telepon VARCHAR(15),
-    email VARCHAR(100),
-    alamat TEXT,
-    kategori_acara VARCHAR(50),
-    riwayat_kesehatan TEXT,
-    foto_url VARCHAR(255)
-   );
+      CREATE TABLE forms (
+      id SERIAL PRIMARY KEY,
+      nama_lengkap VARCHAR(100) NOT NULL,
+      jenis_kelamin VARCHAR(10) NOT NULL,
+      usia INT NOT NULL,
+      nomor_telepon VARCHAR(15) NOT NULL,
+      email VARCHAR(100) NOT NULL,
+      alamat TEXT NOT NULL,
+      kategori_acara VARCHAR(50) NOT NULL,
+      riwayat_kesehatan TEXT NOT NULL,
+      foto_url VARCHAR(255),
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
 
 
 5. Kemudian Execute script
