@@ -16,6 +16,13 @@
       <form action="/forms" method="POST" enctype="multipart/form-data">
         <h2>Data Diri Peserta</h2>
 
+        <div id="success-popup" class="popup" style="display:none;">
+          <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <p>Anda sudah daftar!</p>
+          </div>
+        </div>
+
         <div class="form-group">
           <label for="foto_diri">Pilih Foto Diri:</label>
           <input 
@@ -106,5 +113,37 @@
         <button type="submit">Daftar</button>
       </form>
     </div>
+
+    <script>
+      document.querySelector('form').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        const formData = new FormData(this);
+        
+        try {
+          const response = await fetch(this.action, {
+            method: 'POST',
+            body: formData
+          });
+    
+          const result = await response.json();
+          if (result.success) {
+            // Display the success popup
+            document.getElementById('success-popup').style.display = 'block';
+          } else {
+            alert('Terjadi kesalahan saat mendaftar.');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Terjadi kesalahan saat mendaftar.');
+        }
+      });
+
+      function closePopup() {
+        document.getElementById('success-popup').style.display = 'none'; // Hide the popup
+        window.location.href = '/'; // Redirect to the homepage
+      }
+    </script>
+
   </body>
 </html>

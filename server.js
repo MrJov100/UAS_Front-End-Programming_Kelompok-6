@@ -340,6 +340,65 @@ app.post("/upload", upload.single("photo"), async (req, res) => {
   res.redirect("/upload");
 });
 
+// app.post('/forms', upload.single('foto_diri'), async (req, res) => {
+//   const { nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan } = req.body;
+
+//   // Cek jika data tidak kosong
+//   if (!nama_lengkap || !jenis_kelamin || !usia || !nomor_telepon || !email || !alamat || !kategori_acara || !riwayat_kesehatan) {
+//     return res.send('Data tidak lengkap!');
+//   }
+
+//   const foto_diri = req.file ? req.file.filename : null; // Nama file foto yang diunggah
+
+//   // Log data yang akan disimpan
+//   console.log('Data yang akan disimpan:', {
+//     nama_lengkap,
+//     jenis_kelamin,
+//     usia,
+//     nomor_telepon,
+//     email,
+//     alamat,
+//     kategori_acara,
+//     riwayat_kesehatan,
+//     foto_url: foto_diri ? `uploads/${foto_diri}` : null
+//   });
+
+//   // Simpan data ke dalam database PostgreSQL
+//   const query = 'INSERT INTO forms (nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+//   const values = [nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_diri ? `uploads/${foto_diri}` : null];
+
+//   try {
+//     await pool.query(query, values); // Menyimpan data ke PostgreSQL
+//     res.redirect('/'); // Redirect ke halaman utama setelah registrasi
+//   } catch (error) {
+//     console.error('Error inserting data into database:', error.message); // Menampilkan pesan error
+//     res.send('Gagal menyimpan data registrasi.');
+//   }
+// });
+
+// app.post('/forms', upload.single('foto_diri'), async (req, res) => {
+//   const { nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan } = req.body;
+
+//   // Check if data is not empty
+//   if (!nama_lengkap || !jenis_kelamin || !usia || !nomor_telepon || !email || !alamat || !kategori_acara || !riwayat_kesehatan) {
+//     return res.send('Data tidak lengkap!');
+//   }
+
+//   const foto_diri = req.file ? req.file.filename : null; // Uploaded file name
+
+//   // Save data to PostgreSQL
+//   const query = 'INSERT INTO forms (nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+//   const values = [nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_diri ? `uploads/${foto_diri}` : null];
+
+//   try {
+//     await pool.query(query, values); // Save data to PostgreSQL
+//     return res.json({ success: true }); // Send success response
+//   } catch (error) {
+//     console.error('Error inserting data into database:', error.message);
+//     return res.status(500).send('Gagal menyimpan data registrasi.');
+//   }
+// });
+
 app.post('/forms', upload.single('foto_diri'), async (req, res) => {
   const { nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan } = req.body;
 
@@ -369,10 +428,10 @@ app.post('/forms', upload.single('foto_diri'), async (req, res) => {
 
   try {
     await pool.query(query, values); // Menyimpan data ke PostgreSQL
-    res.redirect('/'); // Redirect ke halaman utama setelah registrasi
+    res.json({ success: true });
   } catch (error) {
-    console.error('Error inserting data into database:', error.message); // Menampilkan pesan error
-    res.send('Gagal menyimpan data registrasi.');
+    console.error('Error inserting data into database:', error.message);
+    res.status(500).json({ success: false, message: 'Gagal menyimpan data registrasi.' });
   }
 });
 
