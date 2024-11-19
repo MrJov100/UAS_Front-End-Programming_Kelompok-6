@@ -35,8 +35,9 @@ Langkah - langkah:
    );
 
    -- Tabel untuk isi form
-      CREATE TABLE forms (
+   CREATE TABLE forms (
       id SERIAL PRIMARY KEY,
+      user_id INTEGER REFERENCES users(id),
       nama_lengkap VARCHAR(100) NOT NULL,
       jenis_kelamin VARCHAR(10) NOT NULL,
       usia INT NOT NULL,
@@ -47,8 +48,7 @@ Langkah - langkah:
       riwayat_kesehatan TEXT NOT NULL,
       foto_url VARCHAR(255),
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-
+   );
 
 5. Kemudian Execute script
 

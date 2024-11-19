@@ -408,8 +408,9 @@ app.post('/forms', upload.single('foto_diri'), async (req, res) => {
   }
 
   const foto_diri = req.file ? req.file.filename : null; // Nama file foto yang diunggah
-
-  // Log data yang akan disimpan
+  const userId = req.session.userId;
+ 
+  // Log data yang akan disimpan (untuk debugging)
   console.log('Data yang akan disimpan:', {
     nama_lengkap,
     jenis_kelamin,
@@ -419,12 +420,13 @@ app.post('/forms', upload.single('foto_diri'), async (req, res) => {
     alamat,
     kategori_acara,
     riwayat_kesehatan,
-    foto_url: foto_diri ? `uploads/${foto_diri}` : null
+    foto_url: foto_diri ? `uploads/${foto_diri}` : null,
+    userId
   });
 
   // Simpan data ke dalam database PostgreSQL
-  const query = 'INSERT INTO forms (nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
-  const values = [nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_diri ? `uploads/${foto_diri}` : null];
+  const query = 'INSERT INTO forms (user_id, nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+  const values = [userId, nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_diri ? `uploads/${foto_diri}` : null];
 
   try {
     await pool.query(query, values); // Menyimpan data ke PostgreSQL
