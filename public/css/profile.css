@@ -17,10 +17,11 @@ body {
   position: fixed;
   left: 0;
   width: 220px;
-  background-color: #f8f9fa;
+
   padding: 20px;
   border-right: 1px solid #dee2e6;
   height: calc(100vh - 70px);
+  margin-top: 100px;
 }
 
 .navbar-profile ul {
@@ -148,6 +149,67 @@ body {
     height: auto;
   }
 
+  .content-container {
+    margin-left: 0;
+  }
+}
+
+/* Tombol Hapus Akun */
+.btn-delete-account {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  width: 100%; /* Full width untuk rapi */
+  text-align: center;
+  margin-top: 320px;
+}
+
+.btn-delete-account:hover {
+  background-color: #c82333;
+}
+
+.navbar-profile {
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-profile.hidden {
+  transform: translateX(-100%);
+}
+
+.toggle-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+@media (max-width: 768px) {
+  .toggle-btn {
+    display: block;
+  }
+  .navbar-profile {
+    position: fixed;
+    width: 220px;
+    z-index: 1000;
+    height: 100vh;
+    background-color: #f8f9fa;
+    transform: translateX(-100%);
+  }
+  .navbar-profile ul {
+    padding-top: 60px;
+  }
   .content-container {
     margin-left: 0;
   }

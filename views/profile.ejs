@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/profile.css" />
-    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/theme.css" />
   </head>
@@ -46,14 +46,30 @@
       /></a>
     </nav>
 
+    <button id="toggle-navbar-btn" class="toggle-navbar-btn">☰</button>
     <!-- Navbar (Vertical) -->
     <nav class="navbar-profile">
       <ul>
         <li><a href="#" data-section="account-details">Detail Akun</a></li>
         <li><a href="#" data-section="change-password">Ganti Password</a></li>
         <li><a href="#" id="forms-link">Formulir</a></li>
-        <!-- Updated -->
         <li><a href="/logout">Logout</a></li>
+        <!-- Tombol Hapus Akun -->
+        <li>
+          <button
+            id="delete-account-btn"
+            class="btn-delete-account"
+            type="button"
+          >
+            Hapus Akun
+          </button>
+        </li>
+        <form
+          id="delete-account-form"
+          action="/delete-account"
+          method="POST"
+          style="display: none"
+        ></form>
       </ul>
     </nav>
 
@@ -110,9 +126,8 @@
 
     <script src="/scripts/profile.js"></script>
     <script src="/scripts/theme-toggle.js"></script>
-    <script src="/scripts/footer.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       document
         .getElementById("forms-link")
@@ -130,6 +145,27 @@
             },
           });
         });
+
+      document
+        .getElementById("delete-account-btn")
+        .addEventListener("click", function () {
+          Swal.fire({
+            title: "Konfirmasi Hapus Akun",
+            text: "Apakah Anda yakin ingin menghapus akun ini? Tindakan ini tidak dapat dibatalkan.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Hapus Akun",
+            cancelButtonText: "Batal",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Jika pengguna mengonfirmasi, submit form
+              document.getElementById("delete-account-form").submit();
+            }
+          });
+        });
     </script>
   </body>
+  `
 </html>

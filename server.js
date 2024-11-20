@@ -54,6 +54,32 @@ app.get("/", (req, res) => {
   });
 });
 
+// Route untuk menghapus akun
+app.post("/delete-account", async (req, res) => {
+  const userId = req.session.userId;
+
+  if (!userId) {
+    return res.status(401).send("Anda harus login untuk menghapus akun.");
+  }
+
+  try {
+    // Hapus akun pengguna berdasarkan userId
+    await pool.query("DELETE FROM users WHERE id = $1", [userId]);
+
+    // Hapus session setelah penghapusan akun berhasil
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Gagal menghapus session.");
+      }
+      res.redirect("/"); // Kembali ke halaman utama
+    });
+  } catch (error) {
+    console.error("Error saat menghapus akun:", error);
+    res.status(500).send("Terjadi kesalahan saat menghapus akun.");
+  }
+});
+
 // Halaman Signup
 app.get("/signup", (req, res) => {
   const loggedIn = req.session.userId ? true : false;

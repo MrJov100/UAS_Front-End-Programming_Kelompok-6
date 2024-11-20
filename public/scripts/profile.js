@@ -35,3 +35,4 @@ document.addEventListener("DOMContentLoaded", function () {
   navLinks[0].classList.add("active");
   sections[0].classList.add("active");
 });
+
