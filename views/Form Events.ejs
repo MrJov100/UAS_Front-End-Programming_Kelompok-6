@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="registrationApp">
+<html lang="en" ng-app="FormApp">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -158,7 +158,7 @@
     </div>
 
     <script>
-      const app = angular.module('registrationApp', ['ngFileUpload']);
+      const app = angular.module('FormApp', ['ngFileUpload']);
 
       app.controller('FormController', ['$scope', '$http', function ($scope, $http) {
         $scope.formData = {};
