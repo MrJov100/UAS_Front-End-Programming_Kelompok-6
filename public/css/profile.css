@@ -1,4 +1,3 @@
-/* Global Reset */
 * {
   margin: 0;
   padding: 0;
@@ -12,16 +11,15 @@ body {
   line-height: 1.6;
 }
 
-/* Navbar Vertical (Profile) */
+/* Navbar Vertical */
 .navbar-profile {
   position: fixed;
   left: 0;
   width: 220px;
-
   padding: 20px;
   border-right: 1px solid #dee2e6;
   height: calc(100vh - 70px);
-  margin-top: 100px;
+  margin-top: 70px;
 }
 
 .navbar-profile ul {
@@ -47,7 +45,6 @@ body {
   color: #007bff;
 }
 
-/* Main Content Container */
 .content-container {
   margin-left: 240px;
   padding: 20px;
@@ -62,7 +59,6 @@ body {
   display: block;
 }
 
-/* Profile Section */
 .profile-container {
   background-color: #ffffff;
   border: 1px solid #dee2e6;
@@ -81,7 +77,6 @@ body {
   color: #495057;
 }
 
-/* Change Password Section */
 .change-password-container {
   background-color: #ffffff;
   border: 1px solid #dee2e6;
@@ -156,17 +151,17 @@ body {
 
 /* Tombol Hapus Akun */
 .btn-delete-account {
-  background-color: #dc3545; /* Warna merah untuk peringatan */
+  background-color: #dc3545;
   color: rgb(255, 255, 255);
   padding: 12px 16px;
   border: none;
-  border-radius: 0; /* Menghilangkan sudut membulat */
-  font-size: 16px; /* Ukuran font yang lebih besar */
+  border-radius: 0;
+  font-size: 16px;
   cursor: pointer;
-  width: 100%; /* Full width untuk keselarasan */
+  width: 100%;
   text-align: center;
-  margin: 20px 0; /* Spasi di atas dan bawah */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+  margin: 20px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, transform 0.2s;
 }
 
@@ -246,7 +241,7 @@ body {
     align-items: start;
     padding: 10px 0;
     border: #333;
-    z-index: 9999;
+    z-index: 100;
   }
 
   .navbar-profile ul {
@@ -276,7 +271,7 @@ body {
 
 @media (max-width: 768px) {
   .btn-delete-account {
-    width: auto; /* Tidak memaksakan full width pada layar kecil */
+    width: auto;
     font-size: 14px;
     padding: 10px 20px;
     margin-top: 2px;
