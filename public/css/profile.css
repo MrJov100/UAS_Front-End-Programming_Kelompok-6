@@ -129,7 +129,7 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 300px) {
   #navbar .checkbtn {
     display: block;
     font-size: 24px;
@@ -156,26 +156,62 @@ body {
 
 /* Tombol Hapus Akun */
 .btn-delete-account {
-  background-color: #dc3545;
-  color: white;
-  padding: 10px 20px;
+  background-color: #dc3545; /* Warna merah untuk peringatan */
+  color: rgb(255, 255, 255);
+  padding: 12px 16px;
   border: none;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 0; /* Menghilangkan sudut membulat */
+  font-size: 16px; /* Ukuran font yang lebih besar */
   cursor: pointer;
-  transition: background-color 0.3s;
-  display: block;
-  width: 100%; /* Full width untuk rapi */
+  width: 100%; /* Full width untuk keselarasan */
   text-align: center;
-  margin-top: 320px;
+  margin: 20px 0; /* Spasi di atas dan bawah */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .btn-delete-account:hover {
   background-color: #c82333;
+  transform: scale(1.05); /* Efek zoom saat dihover */
+}
+
+.btn-delete-account:focus {
+  outline: none;
+  box-shadow: 0 0 5px #dc3545;
 }
 
 .navbar-profile {
-  transition: transform 0.3s ease-in-out;
+  position: absolute;
+  right: 0px;
+  width: 220px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.navbar-profile ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.navbar-profile li {
+  margin: 10px 0;
+}
+
+.navbar-profile a,
+.navbar-profile button {
+  text-decoration: none;
+  color: #333;
+  padding: 0px 12px;
+  display: block;
+  width: 100%;
+  text-align: left;
 }
 
 .navbar-profile.hidden {
@@ -201,16 +237,48 @@ body {
   }
   .navbar-profile {
     position: fixed;
-    width: 220px;
-    z-index: 1000;
-    height: 100vh;
+    top: 0px;
+    width: 100%;
+    height: 100px;
     background-color: #f8f9fa;
-    transform: translateX(-100%);
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    padding: 10px 0;
+    border: #333;
+    z-index: 9999;
   }
+
   .navbar-profile ul {
-    padding-top: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
   }
+
+  .navbar-profile li {
+    margin: 0;
+  }
+
+  .navbar-profile a,
+  .navbar-profile button {
+    padding: 10px 20px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
   .content-container {
     margin-left: 0;
+    margin-top: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn-delete-account {
+    width: auto; /* Tidak memaksakan full width pada layar kecil */
+    font-size: 14px;
+    padding: 10px 20px;
+    margin-top: 2px;
   }
 }

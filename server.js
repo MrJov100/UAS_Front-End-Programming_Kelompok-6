@@ -92,9 +92,11 @@ app.get("/signup", (req, res) => {
 // Halaman Login
 app.get("/login", (req, res) => {
   const loggedIn = req.session.userId ? true : false;
+  const error = req.query.error || false; // Capture the error query parameter
   res.render("login", {
     title: "FitSteps: Login",
     loggedIn: loggedIn,
+    error: error, // Pass the error flag to the view
   });
 });
 
@@ -325,6 +327,7 @@ app.get("/upload", checkAuth, async (req, res) => {
 });
 
 // Proses Login
+// Proses Login
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const query = "SELECT * FROM users WHERE email = $1";
@@ -337,9 +340,9 @@ app.post("/login", async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       req.session.userId = user.id; // Menyimpan ID user di session
       req.session.namaLengkap = user.nama_lengkap; // Menyimpan Nama Lengkap di session
-      res.redirect("/profile"); // Setelah login berhasil, arahkan ke halaman profle
+      res.redirect("/profile"); // Setelah login berhasil, arahkan ke halaman profile
     } else {
-      res.send("Email atau password salah.");
+      res.redirect("/login?error=true"); // Redirect with an error flag
     }
   } catch (error) {
     console.error("Error logging in:", error);
