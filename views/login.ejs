@@ -83,7 +83,7 @@
 
     <div id="footer-placeholder"><%- include('footer') %></div>
 
-    <!-- Check if there's an error flag and show SweetAlert -->
+    <!-- Jika password atau email salah, maka akan muncul error -->
     <% if (error) { %>
     <script>
       Swal.fire({
@@ -91,6 +91,18 @@
         text: "Email atau password salah.",
         icon: "error",
         confirmButtonText: "Coba lagi",
+      });
+    </script>
+    <% } %>
+
+    <!-- jika user coba masuk profile tanpa login, maka akan muncul peringatan -->
+    <% if (error === 'login') { %>
+    <script>
+      Swal.fire({
+        title: "Perhatian!",
+        text: "Anda harus login terlebih dahulu untuk mengakses halaman ini.",
+        icon: "warning",
+        confirmButtonText: "OK",
       });
     </script>
     <% } %>

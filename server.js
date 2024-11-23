@@ -271,7 +271,7 @@ app.post("/signup", async (req, res) => {
 // Middleware untuk mengecek apakah user sudah login
 function checkAuth(req, res, next) {
   if (!req.session.userId) {
-    return res.redirect("/login"); // Redirect ke halaman login jika belum login
+    return res.redirect("/login?error=login"); //
   }
   next();
 }
@@ -282,7 +282,7 @@ app.get("/logout", (req, res) => {
     if (err) {
       console.error("Error during logout:", err);
     }
-    res.redirect("/"); // Arahkan ke halaman home setelah logout
+    res.redirect("/");
   });
 });
 
@@ -326,7 +326,6 @@ app.get("/upload", checkAuth, async (req, res) => {
   }
 });
 
-// Proses Login
 // Proses Login
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
