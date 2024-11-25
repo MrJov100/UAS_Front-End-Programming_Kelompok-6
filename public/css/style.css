@@ -57,6 +57,13 @@ section p {
 .content h1 {
   font-size: 2.5em;
   color: #4bde38;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.content h4 {
+  color: black;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .content p {
@@ -64,40 +71,8 @@ section p {
   color: #666;
   margin-top: 15px;
   line-height: 1.8;
-}
-
-#background-video {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  margin-top: 20px;
-}
-
-.video-container {
-  position: relative;
-  margin-top: 100px;
-  width: 80%;
-  margin: 100px auto 0;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#volume-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(179, 179, 179, 0.8);
-  border: none;
-  border-radius: 50%;
-  padding: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 0;
-  transition: background 0.3s ease;
-}
-
-#volume-btn:hover {
-  background: rgba(255, 255, 255, 1);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 /* ===========BATAS=========== */
@@ -242,21 +217,24 @@ section p {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+  overflow: hidden; /* Ensure image stays within card bounds */
+  padding: 10px; /* Padding for image content */
+  background-color: #fff; /* White background to simulate card effect */
 }
 
-.image1.appear {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.image2.appear {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+.image1.appear,
+.image2.appear,
 .image3.appear {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Add card hover effect */
+.scroll-image:hover {
+  transform: translateY(-10px); /* Slight lift on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
 }
 
 @media (max-width: 768px) {
@@ -290,12 +268,14 @@ section p {
   font-size: 2.5em;
   color: #000000;
   margin-bottom: 50px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .cta-section p {
   font-size: 1.5em;
   color: #666;
   margin-bottom: 50px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .cta-button {

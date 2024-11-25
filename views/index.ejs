@@ -18,7 +18,7 @@
     <!-- Tambahkan pustaka AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   </head>
-  <body ng-controller="MainController">
+  <body>
     <!-- TOMBOL Back to Top -->
     <button id="backToTopBtn" class="back-to-top">
       <img
@@ -137,11 +137,19 @@
     </section>
 
     <div class="content fade-in">
-      <h1>{{ welcomeMessage }}</h1>
-      <p>{{ description }}</p>
-      <p>{{ additionalInfo }}</p>
+      <h1>Welcome to FitSteps!</h1>
+      <p>
+        FitSteps is more than just a fitness platform—it's a gateway to a
+        healthy and active lifestyle! Come, discover tips, workouts, trendy
+        shoes, and much more designed specifically to help you take small steps
+        toward big changes!
+      </p>
+      <p>
+        Want to find the best workouts, understand health benefits, or follow
+        the latest sports lifestyle trends?
+      </p>
       <br />
-      <h4>{{ slogan }}</h4>
+      <h4>FitSteps has everything for you!</h4>
     </div>
 
     <div class="images-container fade-in">
@@ -163,11 +171,12 @@
     </div>
 
     <div class="cta-section fade-in">
-      <h2>{{ ctaTitle }}</h2>
-      <p>{{ ctaDescription }}</p>
-      <a href="/pages/Health Benefits.html" class="cta-button"
-        >HEALTH BENEFITS</a
-      >
+      <h2>GET STARTED</h2>
+      <p>
+        Discover the benefits of exercising now, and start your healthy
+        lifestyle today!
+      </p>
+      <a href="/health-benefits" class="cta-button">HEALTH BENEFITS</a>
     </div>
 
     <div class="banner fade-in">
@@ -178,35 +187,6 @@
     <div id="newsletter-placeholder"></div>
 
     <div id="footer-placeholder"><%- include('footer') %></div>
-
-    <!-- AngularJS script -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const footer = document.getElementById("community");
-        footer.classList.add("visible");
-      });
-
-      // Define AngularJS module and controller
-      angular
-        .module("myApp", [])
-        .controller("MainController", function ($scope) {
-          $scope.welcomeMessage = "Welcome to FitSteps!";
-          $scope.description =
-            "FitSteps is more than just a fitness platform—it's a gateway to a healthy and active lifestyle!";
-          $scope.additionalInfo =
-            "Want to find the best workouts, understand health benefits, or follow the latest sports lifestyle trends?";
-          $scope.slogan = "FitSteps has everything for you!";
-          $scope.ctaTitle = "GET STARTED";
-          $scope.ctaDescription =
-            "Discover the benefits of exercising now, and start your healthy lifestyle today!";
-
-          // Toggle volume function
-          $scope.toggleVolume = function () {
-            const video = document.getElementById("background-video");
-            video.muted = !video.muted;
-          };
-        });
-    </script>
 
     <script src="/scripts/home-script.js"></script>
     <script src="/scripts/theme-toggle.js"></script>
