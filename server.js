@@ -13,7 +13,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "FitSteps",
-  password: "jovandi",
+  password: "ShirleyUntar",
   port: 5432,
 });
 
@@ -188,10 +188,27 @@ app.get("/trendy-shoes", (req, res) => {
 app.get("/forms", checkAuth, (req, res) => {
   const loggedIn = req.session.userId ? true : false;
   res.render("Form Events", {
-    title: "Join Event Form",
+    title: "FitSteps: Join Event Form",
     loggedIn: loggedIn,
   });
 });
+
+app.get ('/readForms', checkAuth, async (req, res) =>{
+  try{
+    const userId = req.session.userId;
+    if(!userId){
+      return res.status(403).send("Anda tidak memiliki akses.");
+    }
+
+    const query ="SELECT * FROM forms WHERE user_id = $1";
+    const result = await pool.query(query, [userId]);
+
+    res.render('readForms', { forms: result.rows});
+  } catch (error){
+    console.error("Error membaca data forms:", error);
+    res.status(500).send("Terjadi kesalahan saat membaca data forms.");
+  }
+})
 
 app.post("/change-password", checkAuth, async (req, res) => {
   const { oldPassword, newPassword, confirmPassword } = req.body;
