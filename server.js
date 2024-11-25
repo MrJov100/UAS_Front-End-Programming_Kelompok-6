@@ -129,6 +129,108 @@ app.get("/health-benefits", (req, res) => {
   });
 });
 
+// UJICOBA POST FOTO N CAPTION
+// Halaman Tambah Post
+app.get("/add-post", checkAuth, (req, res) => {
+  const loggedIn = req.session.userId ? true : false;
+  res.render("add-post", {
+    title: "FitSteps: Upcoming Events",
+    loggedIn: loggedIn,
+  });
+});
+
+// Proses Tambah Post
+app.post("/add-post", checkAuth, upload.single("photo"), async (req, res) => {
+  const { caption } = req.body;
+  const userId = req.session.userId;
+  const photoFilename = req.file ? req.file.filename : null;
+
+  try {
+    await pool.query(
+      "INSERT INTO posts (user_id, caption, photo_filename) VALUES ($1, $2, $3)",
+      [userId, caption, photoFilename]
+    );
+    res.redirect("/posts");
+  } catch (error) {
+    console.error("Error adding post:", error);
+    res.status(500).send("Error adding post.");
+  }
+});
+
+// Halaman Menampilkan Semua Post
+app.get("/posts", checkAuth, async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT id, caption, photo_filename, created_at FROM posts WHERE user_id = $1",
+      [req.session.userId]
+    );
+    res.render("posts", {
+      title: "Semua Post",
+      posts: result.rows,
+      loggedIn: true,
+    });
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    res.status(500).send("Error fetching posts.");
+  }
+});
+
+// Halaman Edit Post
+app.get("/edit-post/:id", checkAuth, async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+    const result = await pool.query(
+      "SELECT id, caption FROM posts WHERE id = $1",
+      [postId]
+    );
+    const post = result.rows[0];
+
+    if (post) {
+      res.render("edit-post", {
+        title: "Edit Post",
+        post: post,
+        loggedIn: true,
+      });
+    } else {
+      res.status(404).send("Post not found.");
+    }
+  } catch (error) {
+    console.error("Error fetching post for editing:", error);
+    res.status(500).send("Error fetching post for editing.");
+  }
+});
+
+// Proses Edit Post
+app.post("/edit-post/:id", checkAuth, async (req, res) => {
+  const postId = req.params.id;
+  const { caption } = req.body;
+
+  try {
+    await pool.query(
+      "UPDATE posts SET caption = $1, updated_at = NOW() WHERE id = $2",
+      [caption, postId]
+    );
+    res.redirect("/posts");
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).send("Error updating post.");
+  }
+});
+
+// Proses Hapus Post
+app.post("/delete-post/:id", checkAuth, async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+    await pool.query("DELETE FROM posts WHERE id = $1", [postId]);
+    res.redirect("/posts");
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).send("Error deleting post.");
+  }
+});
+
 app.get("/fit-share", async (req, res) => {
   try {
     const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
@@ -175,6 +277,51 @@ app.get("/api/uploads", async (req, res) => {
   } catch (error) {
     console.error("Error fetching uploads data:", error.message);
     res.status(500).send("Error loading uploads page.");
+  }
+});
+
+app.post("/api/edit/:id", async (req,res) => {
+  const {id} = req.params;
+  const {caption} = req.body;
+
+  console.log("Caption diterima dari form:", caption);
+  const userId = req.session.userId;
+
+  try {
+    const checkQuery = "SELECT id_user FROM uploads WHERE id = $1";
+    const checkResult = await pool.query(checkQuery, [id]);
+    if (checkResult.rows[0].id_user !== userId) {
+      return res.status(403).send("You can only edit your own posts.");
+    }
+
+    const updateQuery = "UPDATE uploads SET caption = $1 WHERE id = $2 RETURNING *";
+    const result = await pool.query(updateQuery, [caption, id]);
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).send("Error updating post.");
+  }
+});
+
+app.delete("/api/delete/:id", async (req, res) => {
+  const {id} = req.params;
+  const userId = req.session.userId;
+
+  try {
+    const checkQuery = "SELECT id_user FROM uploads WHERE id = $1";
+    const checkResult = await pool.query(checkQuery, [id]);
+    if (checkResult.rows[0].id_user !== userId) {
+      return res.status(403).send("You can only delete your own posts.");
+    }
+
+    const deleteQuery = "DELETE FROM uploads WHERE id = $1";
+    await pool.query(deleteQuery, [id]);
+
+    res.sendStatus(204);
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).send("Error deleting post.");
   }
 });
 
