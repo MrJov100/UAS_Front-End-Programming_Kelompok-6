@@ -43,6 +43,15 @@ app.use(
   })
 );
 
+// Middleware untuk memeriksa autentikasi
+function checkAuth(req, res, next) {
+  if (!req.session.userId) {
+    req.session.redirectTo = req.originalUrl; // Simpan URL tujuan
+    return res.redirect('/login');
+  }
+  next();
+}
+
 // Route untuk halaman index (halaman utama)
 app.get("/", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Mengecek session user
@@ -176,8 +185,7 @@ app.get("/trendy-shoes", (req, res) => {
   });
 });
 
-app.get("/forms", (req, res) => {
-  console.log("Navigating to /forms");
+app.get("/forms", checkAuth, (req, res) => {
   const loggedIn = req.session.userId ? true : false;
   res.render("Form Events", {
     title: "Join Event Form",
@@ -268,6 +276,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+
 // Middleware untuk mengecek apakah user sudah login
 function checkAuth(req, res, next) {
   if (!req.session.userId) {
@@ -275,6 +284,7 @@ function checkAuth(req, res, next) {
   }
   next();
 }
+
 
 // Tambahkan route untuk logout
 app.get("/logout", (req, res) => {
@@ -373,17 +383,8 @@ app.post("/upload", upload.single("photo"), async (req, res) => {
   res.redirect("/upload");
 });
 
-app.post("/forms", upload.single("foto_diri"), async (req, res) => {
-  const {
-    nama_lengkap,
-    jenis_kelamin,
-    usia,
-    nomor_telepon,
-    email,
-    alamat,
-    kategori_acara,
-    riwayat_kesehatan,
-  } = req.body;
+app.post('/forms', upload.single('foto_diri'), async (req, res) => {
+  const { nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan } = req.body;
 
   // Cek jika data tidak kosong
   if (
@@ -401,8 +402,10 @@ app.post("/forms", upload.single("foto_diri"), async (req, res) => {
 
   const foto_diri = req.file ? req.file.filename : null; // Nama file foto yang diunggah
 
-  // Log data yang akan disimpan
-  console.log("Data yang akan disimpan:", {
+  const userId = req.session.userId;
+ 
+  // Log data yang akan disimpan (untuk debugging)
+  console.log('Data yang akan disimpan:', {
     nama_lengkap,
     jenis_kelamin,
     usia,
@@ -412,29 +415,20 @@ app.post("/forms", upload.single("foto_diri"), async (req, res) => {
     kategori_acara,
     riwayat_kesehatan,
     foto_url: foto_diri ? `uploads/${foto_diri}` : null,
+    userId
   });
 
   // Simpan data ke dalam database PostgreSQL
-  const query =
-    "INSERT INTO forms (nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
-  const values = [
-    nama_lengkap,
-    jenis_kelamin,
-    usia,
-    nomor_telepon,
-    email,
-    alamat,
-    kategori_acara,
-    riwayat_kesehatan,
-    foto_diri ? `uploads/${foto_diri}` : null,
-  ];
+  const query = 'INSERT INTO forms (user_id, nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+  const values = [userId, nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_diri ? `uploads/${foto_diri}` : null];
 
   try {
     await pool.query(query, values); // Menyimpan data ke PostgreSQL
-    res.redirect("/"); // Redirect ke halaman utama setelah registrasi
+    res.json({ success: true });
   } catch (error) {
-    console.error("Error inserting data into database:", error.message); // Menampilkan pesan error
-    res.send("Gagal menyimpan data registrasi.");
+    console.error('Error inserting data into database:', error.message);
+    res.status(500).json({ success: false, message: 'Gagal menyimpan data registrasi.' });
+
   }
 });
 

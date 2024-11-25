@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="FormApp">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,95 +8,200 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/forms.css" />
     <link rel="stylesheet" href="/css/theme.css" />
-    <!-- Path CSS yang sama seperti di index.ejs -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ng-file-upload/dist/ng-file-upload.min.js"></script>
+    <style>
+      /* Popup and Overlay styling */
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        z-index: 1000;
+        border-radius: 8px;
+      }
+
+      .popup.active {
+        display: block;
+      }
+
+      .popup .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+    </style>
   </head>
 
-  <body>
+  <body ng-controller="FormController">
     <div class="form-container">
       <h1>Formulir Registrasi</h1>
-      <form action="/forms" method="POST" enctype="multipart/form-data">
+      <form ng-submit="submitForm()" enctype="multipart/form-data" novalidate>
         <h2>Data Diri Peserta</h2>
+
+        <!-- Popup -->
+        <div id="success-popup" class="popup" ng-class="{ active: isPopupVisible }">
+          <div class="popup-content">
+            <span class="close" ng-click="closePopup()">&times;</span>
+            <p>{{ popupMessage }}</p>
+          </div>
+        </div>
+        <div class="overlay" ng-class="{ active: isPopupVisible }"></div>
 
         <div class="form-group">
           <label for="foto_diri">Pilih Foto Diri:</label>
           <input
             type="file"
+            id="foto_diri"
+            ngf-select
             name="foto_diri"
+            ng-model="formData.foto_diri"
             accept="image/*"
-            class="form-control"
             required
           />
         </div>
 
         <div class="form-group">
           <label for="nama_lengkap">Nama Lengkap:</label>
-          <input type="text" name="nama_lengkap" required />
+          <input type="text" id="nama_lengkap" ng-model="formData.nama_lengkap" required />
         </div>
 
         <div class="form-group">
           <label>Jenis Kelamin:</label>
           <div class="radio-group">
-            <input
-              type="radio"
-              name="jenis_kelamin"
-              value="laki-laki"
-              required
-            />
-            <label>Laki-laki</label>
-            <input
-              type="radio"
-              name="jenis_kelamin"
-              value="perempuan"
-              required
-            />
-            <label>Perempuan</label>
+            <label>
+              <input type="radio" name="jenis_kelamin" value="laki-laki" ng-model="formData.jenis_kelamin" required />
+              Laki-laki
+            </label>
+            <label>
+              <input type="radio" name="jenis_kelamin" value="perempuan" ng-model="formData.jenis_kelamin" required />
+              Perempuan
+            </label>
           </div>
         </div>
 
         <div class="form-group">
           <label for="usia">Usia:</label>
-          <input type="number" name="usia" required />
+          <input type="number" id="usia" ng-model="formData.usia" required />
         </div>
 
         <div class="form-group">
           <label for="nomor_telepon">Nomor Telepon:</label>
-          <input type="tel" name="nomor_telepon" required />
+          <div class="phone-input">
+            <select ng-model="formData.kode_negara" required>
+              <option value="+62">+62</option>
+              <option value="+1">+1</option>
+              <option value="+44">+44</option>
+              <option value="+61">+61</option>
+            </select>
+            <input type="tel" ng-model="formData.nomor_telepon" placeholder="Nomor Telepon" required />
+          </div>
         </div>
 
         <div class="form-group">
           <label for="email">Alamat Email:</label>
-          <input type="email" name="email" required />
+          <input type="email" id="email" ng-model="formData.email" required />
         </div>
 
         <div class="form-group">
           <label for="alamat">Alamat Tempat Tinggal:</label>
-          <textarea name="alamat" required></textarea>
+          <textarea id="alamat" ng-model="formData.alamat" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="riwayat_kesehatan">Riwayat Kesehatan Singkat:</label>
+          <textarea id="riwayat_kesehatan" ng-model="formData.riwayat_kesehatan" required></textarea>
         </div>
 
         <h2>Kategori Acara</h2>
         <div class="form-group">
           <label for="kategori_acara">Pilih Kategori Acara:</label>
-          <select name="kategori_acara" required>
+          <select id="kategori_acara" ng-model="formData.kategori_acara" required>
             <option value="kategori1">Kategori 1</option>
             <option value="kategori2">Kategori 2</option>
             <option value="kategori3">Kategori 3</option>
           </select>
         </div>
 
-        <div class="form-group">
-          <label for="riwayat_kesehatan">Riwayat Kesehatan Singkat:</label>
-          <textarea name="riwayat_kesehatan" required></textarea>
-        </div>
-
         <div class="setuju-data">
           <label>
-            <input type="checkbox" name="persetujuan" required /> Saya setuju
-            dengan penggunaan data pribadi saya
+            <input type="checkbox" ng-model="formData.persetujuan" required />
+            Saya setuju dengan penggunaan data pribadi saya
           </label>
         </div>
 
         <button type="submit">Daftar</button>
       </form>
     </div>
+
+    <script>
+      const app = angular.module('FormApp', ['ngFileUpload']);
+
+      app.controller('FormController', ['$scope', '$http', function ($scope, $http) {
+        $scope.formData = {};
+        $scope.isPopupVisible = false;
+        $scope.popupMessage = '';
+
+        // Submit Form
+        $scope.submitForm = function () {
+          const formData = new FormData();
+          angular.forEach($scope.formData, (value, key) => {
+            formData.append(key, value);
+          });
+
+          $http({
+            method: 'POST',
+            url: '/forms',
+            data: formData,
+            headers: { 'Content-Type': undefined },
+          })
+            .then(
+              (response) => {
+                if (response.data.success) {
+                  $scope.popupMessage = 'Anda berhasil mendaftar!';
+                  $scope.isPopupVisible = true;
+                } else {
+                  $scope.popupMessage = 'Terjadi kesalahan saat mendaftar.';
+                  $scope.isPopupVisible = true;
+                }
+              },
+              (error) => {
+                $scope.popupMessage = 'Terjadi kesalahan saat mendaftar.';
+                $scope.isPopupVisible = true;
+                console.error('Error:', error);
+              }
+            );
+        };
+
+        // Close Popup
+        $scope.closePopup = function () {
+          $scope.isPopupVisible = false;
+          window.location.href = '/'; // Redirect to the homepage
+        };
+      }]);
+    </script>
   </body>
 </html>

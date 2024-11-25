@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp">
+<html lang="en" ng-app="contactusApp">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,11 +15,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   </head>
 
-  <body>
+  <body ng-controller="NavbarController">
     <!-- TOMBOL Back to Top -->
-    <button id="backToTopBtn" class="back-to-top">
+    <button id="backToTopBtn" class="back-to-top" ng-click="scrollToTop()">
       <img
         src="../assets/images/green-up.png"
         alt="Back to Top"
@@ -34,9 +35,9 @@
         <i class="fas fa-bars"></i>
       </label>
 
-      <a href="index.html" id="logo"
-        ><img src="../assets/images/logo.png" alt="FitSteps Logo"
-      /></a>
+      <a href="index.html" id="logo">
+        <img src="../assets/images/logo.png" alt="FitSteps Logo" />
+      </a>
 
       <div class="navbar-biasa">
         <a href="/">Home</a>
@@ -46,21 +47,18 @@
         <a href="/contact-us">Contact Us</a>
         <a href="/events">Upcoming Events</a>
 
-        <% if (loggedIn) { %>
-        <a href="/profile">Profile</a>
-        <a href="/logout">Logout</a>
-        <% } else { %>
-        <a href="/login">Login</a>
-        <a href="/signup">Daftar</a>
-        <% } %>
+        <a href="/profile" ng-if="isLoggedIn">Profile</a>
+        <a href="/logout" ng-if="isLoggedIn">Logout</a>
+        <a href="/login" ng-if="!isLoggedIn">Login</a>
+        <a href="/signup" ng-if="!isLoggedIn">Daftar</a>
 
         <!-- Tombol Mode Terang/Gelap -->
-        <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" ng-click="toggleTheme()">🌙</button>
       </div>
 
-      <a href="/" id="moto"
-        ><img src="/assets/images/moto.png" alt="FitSteps Moto"
-      /></a>
+      <a href="/" id="moto">
+        <img src="/assets/images/moto.png" alt="FitSteps Moto" />
+      </a>
     </nav>
 
     <div class="contactUs-dalam">
@@ -70,7 +68,7 @@
       <h2><i class="fas fa-mobile-alt"></i><br />Call us</h2>
       <h3 class="isidalam">
         0123-456-789 <br />Join Event: 05.00 - 23.00, 7 days a week
-        <br />Company Info & EnquiresL 09.00 - 18.00, Monday - Friday
+        <br />Company Info & Enquiries: 09.00 - 18.00, Monday - Friday
       </h3>
 
       <h2><i class="fas fa-map-marker-alt"></i><br />Location</h2>
@@ -82,8 +80,24 @@
     </div>
 
     <div id="footer-placeholder"></div>
+
     <script src="/scripts/theme-toggle.js"></script>
     <script src="/scripts/backToTopButton.js"></script>
     <script src="/scripts/footer.js"></script>
+
+    <script>
+      angular.module('contactusApp', [])
+        .controller('NavbarController', function($scope) {
+          $scope.isLoggedIn = true; 
+          
+          $scope.scrollToTop = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          };
+
+          $scope.toggleTheme = function() {
+            document.body.classList.toggle('dark-theme');
+          };
+        });
+    </script>
   </body>
 </html>
