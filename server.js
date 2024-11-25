@@ -293,7 +293,6 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-
 // Middleware untuk mengecek apakah user sudah login
 function checkAuth(req, res, next) {
   if (!req.session.userId) {
@@ -301,7 +300,6 @@ function checkAuth(req, res, next) {
   }
   next();
 }
-
 
 // Tambahkan route untuk logout
 app.get("/logout", (req, res) => {
@@ -401,13 +399,14 @@ app.post("/upload", upload.single("photo"), async (req, res) => {
 });
 
 app.post('/forms', upload.single('foto_diri'), async (req, res) => {
-  const { nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan } = req.body;
+  const { nama_lengkap, jenis_kelamin, usia, kode_negara,nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan } = req.body;
 
   // Cek jika data tidak kosong
   if (
     !nama_lengkap ||
     !jenis_kelamin ||
     !usia ||
+    !kode_negara||
     !nomor_telepon ||
     !email ||
     !alamat ||
@@ -426,6 +425,7 @@ app.post('/forms', upload.single('foto_diri'), async (req, res) => {
     nama_lengkap,
     jenis_kelamin,
     usia,
+    kode_negara, 
     nomor_telepon,
     email,
     alamat,
@@ -436,8 +436,8 @@ app.post('/forms', upload.single('foto_diri'), async (req, res) => {
   });
 
   // Simpan data ke dalam database PostgreSQL
-  const query = 'INSERT INTO forms (user_id, nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
-  const values = [userId, nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_diri ? `uploads/${foto_diri}` : null];
+  const query = 'INSERT INTO forms (user_id, nama_lengkap, jenis_kelamin, usia, kode_negara, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
+  const values = [userId, nama_lengkap, jenis_kelamin, usia,kode_negara, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_diri ? `uploads/${foto_diri}` : null];
 
   try {
     await pool.query(query, values); // Menyimpan data ke PostgreSQL
