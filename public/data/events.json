@@ -1,0 +1,39 @@
+{
+  "events": [
+    {
+      "date": "4 August 2024",
+      "eventName": "City Run 2024",
+      "category": "5K/10K",
+      "eventType": "Fun Run",
+      "location": "Jakarta"
+    },
+    {
+      "date": "1 September 2024",
+      "eventName": "Dance Festival",
+      "category": "Various Styles",
+      "eventType": "Dance",
+      "location": "Jakarta"
+    },
+    {
+      "date": "8 October 2024",
+      "eventName": "Karate World Cup",
+      "category": "International",
+      "eventType": "Martial Arts",
+      "location": "Bali"
+    },
+    {
+      "date": "15 November 2024",
+      "eventName": "Athletics World Championship",
+      "category": "International",
+      "eventType": "Athletics",
+      "location": "Surabaya"
+    },
+    {
+      "date": "22 December 2024",
+      "eventName": "End of Year Charity Run",
+      "category": "5K/10K",
+      "eventType": "Fun Run",
+      "location": "Jakarta"
+    }
+  ]
+}
