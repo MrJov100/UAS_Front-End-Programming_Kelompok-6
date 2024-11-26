@@ -23,12 +23,13 @@
                     <th>Kategori Acara</th>
                     <th>Riwayat Kesehatan</th>
                     <th>Foto Diri</th>
+                    <th>Delete Event</th>
                 </tr>
             </thead>
             <tbody>
                 <% forms.forEach(form => { %>
                     <tr>
-                        <td><%= form.id %></td>
+                        <td><%= form.form_id %></td>
                         <td><%= form.nama_lengkap %></td>
                         <td><%= form.jenis_kelamin %></td>
                         <td><%= form.usia %></td>
@@ -45,12 +46,58 @@
                               Tidak ada foto
                             <% } %>
                         </td>
+                        <td>
+                            <button class="delete-form-button" data-form-id="<%= form.form_id %>">Hapus</button>
+                        </td>
                     </tr>
                 <% });  %>
             </tbody>
         </table>
-    <% }else { %>
+    <% } else { %>
         <p>Tidak ada data forms untuk user ini.</p>
     <% } %>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const deleteButtons = document.querySelectorAll('.delete-form-button');
+
+          deleteButtons.forEach(button => {
+            button.addEventListener('click', async (event) => {
+              const formId = event.target.getAttribute('data-form-id');
+              console.log("Form ID yang dikirim:", formId);
+
+              if (!formId) {
+                alert("Form ID tidak ditemukan.");
+                return;
+              }
+
+              const confirmDelete = confirm("Apakah Anda yakin ingin menghapus form ini?");
+              if (!confirmDelete) return;
+
+              try {
+                const response = await fetch('/delete-form', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ formId })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                  alert(result.message);
+                  location.reload();
+                } else {
+                  alert(result.message || 'Gagal menghapus form.');
+                }
+              } catch (error) {
+                console.error("Error saat menghapus form:", error);
+                alert("Terjadi kesalahan. Silakan coba lagi.");
+              }
+            });
+          });
+        });
+    </script>
 </body>
 </html>

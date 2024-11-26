@@ -89,6 +89,40 @@ app.post("/delete-account", async (req, res) => {
   }
 });
 
+app.post("/delete-form", async (req, res) => {
+  console.log("Request body:", req.body);
+  const userId = req.session.userId; // Pastikan user sudah login
+  const { formId } = req.body;
+
+  console.log("Form ID diterima:", formId); // Debug log untuk memeriksa formId
+
+  if (!userId) {
+    return res.status(401).json({ message: "Anda harus login untuk menghapus form." });
+  }
+
+  if (!formId) {
+    return res.status(400).json({ message: "Form ID tidak diberikan." });
+  }
+
+  try {
+    const result = await pool.query(
+      "DELETE FROM forms WHERE form_id = $1 AND user_id = $2 RETURNING *",
+      [formId, userId]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: "Form tidak ditemukan atau Anda tidak memiliki izin." });
+    }
+
+    res.json({ success: true, message: "Form berhasil dihapus." });
+  } catch (error) {
+    console.error("Error saat menghapus form:", error);
+    res.status(500).json({ message: "Terjadi kesalahan saat menghapus form." });
+  }
+});
+
+
+
 // Halaman Signup
 app.get("/signup", (req, res) => {
   const loggedIn = req.session.userId ? true : false;
@@ -448,6 +482,23 @@ app.post('/forms', upload.single('foto_diri'), async (req, res) => {
 
   }
 });
+
+// app.post("/updateRiwayatKesehatan", async (req, res) => {
+//   const { formId, riwayat } = req.body;
+
+//   if (!formId || !riwayat) {
+//       return res.status(400).json({ success: false, message: "Data tidak lengkap." });
+//   }
+
+//   try {
+//       const query = "UPDATE forms SET riwayat_kesehatan = $1 WHERE id = $2";
+//       await pool.query(query, [riwayat, formId]);
+//       res.status(200).json({ success: true });
+//   } catch (error) {
+//       console.error("Error updating riwayat kesehatan:", error);
+//       res.status(500).json({ success: false, message: "Terjadi kesalahan pada server." });
+//   }
+// });
 
 app.use((req, res) => {
   res.status(404).send("<h1>404 - Page Not Found</h1>");
