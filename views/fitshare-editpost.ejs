@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/fitshare.css" />
+  </head>
+  <body>
+    <% if (loggedIn) { %>
+    <h1>Edit Post</h1>
+    <form action="/edit-post/<%= post.id %>" method="POST">
+      <label for="caption">Caption:</label>
+      <textarea id="caption" name="caption" required>
+<%= post.caption %></textarea
+      >
+      <br /><br />
+      <button type="submit">Save Changes</button>
+    </form>
+    <% } else { %>
+    <p>You need to be logged in to edit a post.</p>
+    <% } %>  
+  </body>
+</html>

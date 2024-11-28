@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/fitshare.css" />
+  </head>
+  <body>
+    <% if (loggedIn) { %>
+    <h1>Your Posts</h1>
+    <p>Welcome, <%= namaLengkap %>!</p>
+    <!-- Display full name at the top -->
+    <a href="/add-post">Add New Post</a>
+    <ul>
+      <% posts.forEach(post => { %>
+      <li>
+        <img
+          src="/uploads/<%= post.photo_filename %>"
+          alt="Post Image"
+          width="100"
+          height="100"
+        />
+        <p><%= post.caption %></p>
+        <p><strong>Posted by: </strong><%= post.nama_lengkap %></p>
+        <!-- Display full name of the poster -->
+        <a href="/edit-post/<%= post.id %>">Edit</a>
+        <form
+          action="/delete-post/<%= post.id %>"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
+    <% } else { %>
+    <p>You need to be logged in to view your posts.</p>
+    <% } %>
+  </body>
+</html>

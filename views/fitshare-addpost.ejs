@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/fitshare.css" />
+  </head>
+  <body>
+    <% if (loggedIn) { %>
+    <h1>Create a New Post</h1>
+    <form action="/add-post" method="POST" enctype="multipart/form-data">
+      <label for="caption">Caption:</label>
+      <textarea id="caption" name="caption" required></textarea>
+      <br /><br />
+      <label for="photo">Upload Photo:</label>
+      <input type="file" id="photo" name="photo" accept="image/*" required />
+      <br /><br />
+      <button type="submit">Submit</button>
+    </form>
+    <% } else { %>
+    <p>You need to be logged in to create a post.</p>
+    <% } %>  
+  </body>
+</html>
