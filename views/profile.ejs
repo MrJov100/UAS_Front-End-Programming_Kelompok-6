@@ -5,27 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/profile.css" />
-    <link rel="stylesheet" href="/css/theme.css" />
-    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/theme.css" />
-    <link rel="stylesheet" href="/css/backToTopButton.css" />
-
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
   </head>
   <body>
-    <!-- TOMBOL Back to Top -->
-    <button id="backToTopBtn" class="back-to-top">
-      <img
-        src="/assets/images/green-up.png"
-        alt="Back to Top"
-        id="backToTopImg"
-      />
-    </button>
-
     <nav id="navbar">
       <input type="checkbox" id="check" />
 
@@ -46,7 +34,7 @@
         <a href="/events">Upcoming Events</a>
 
         <% if (loggedIn) { %>
-        <a href="/">Profile</a>
+        <a href="/profile">Profile</a>
         <a href="/logout">Logout</a>
         <% } else { %>
         <a href="/login">Login</a>
@@ -62,22 +50,127 @@
       /></a>
     </nav>
 
-    <h1>Profile Pengguna</h1>
+    <button id="toggle-navbar-btn" class="toggle-navbar-btn">☰</button>
 
-    <div class="profile-container">
-      <p><strong>Nama:</strong> <%= namaLengkap %></p>
-      <p><strong>Email:</strong> <%= email %></p>
+    <!-- Navbar (Vertical) -->
+    <nav class="navbar-profile">
+      <ul>
+        <li><a href="#" data-section="account-details">Detail Akun</a></li>
+        <li><a href="#" data-section="change-password">Ganti Password</a></li>
+        <li><a href="#" id="forms-link">Formulir</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <!-- Tombol Hapus Akun -->
+        <li>
+          <button
+            id="delete-account-btn"
+            class="btn-delete-account"
+            type="button"
+            aria-label="Hapus Akun"
+          >
+            Hapus Akun
+          </button>
+        </li>
+        <form
+          id="delete-account-form"
+          action="/delete-account"
+          method="POST"
+          style="display: none"
+        ></form>
+      </ul>
+    </nav>
+
+    <div class="content-container">
+      <div class="profile-container section active" id="account-details">
+        <h1>Profil</h1>
+        <p><strong>Nama:</strong> <%= namaLengkap %></p>
+        <p><strong>Email:</strong> <%= email %></p>
+      </div>
+
+      <div class="change-password-container section" id="change-password">
+        <h2>Ganti Password</h2>
+        <form action="/change-password" method="POST">
+          <div class="form-group">
+            <label for="oldPassword">Password Lama:</label>
+            <input
+              type="password"
+              id="oldPassword"
+              name="oldPassword"
+              placeholder="Masukkan password lama"
+              required
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="newPassword">Password Baru:</label>
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              placeholder="Masukkan password baru"
+              required
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Konfirmasi Password Baru:</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Konfirmasi password baru"
+              required
+              class="form-control"
+            />
+          </div>
+
+          <button type="submit" class="btn-submit">Ganti Password</button>
+        </form>
+      </div>
     </div>
 
-    <div class="profile-actions">
-      <!-- Tombol untuk mengganti password -->
-      <form action="/change-password" method="GET">
-        <button type="submit">Ganti Password</button>
-      </form>
-      <!-- Tombol untuk logout -->
-      <form action="/logout" method="GET">
-        <button type="submit">Logout</button>
-      </form>
-    </div>
+    <script src="/scripts/profile.js"></script>
+    <script src="/scripts/theme-toggle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      document
+        .getElementById("forms-link")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+
+          Swal.fire({
+            title: "Anda akan diarahkan ke halaman Formulir",
+            text: "Anda akan diarahkan dalam 5 detik.",
+            icon: "info",
+            timer: 5000,
+            timerProgressBar: true,
+            willClose: () => {
+              window.location.href = "/forms";
+            },
+          });
+        });
+
+      document
+        .getElementById("delete-account-btn")
+        .addEventListener("click", function () {
+          Swal.fire({
+            title: "Konfirmasi Hapus Akun",
+            text: "Apakah Anda yakin ingin menghapus akun ini? Tindakan ini tidak dapat dibatalkan.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Ya, Hapus Akun",
+            cancelButtonText: "Batal",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              document.getElementById("delete-account-form").submit();
+            }
+          });
+        });
+    </script>
   </body>
+  `
 </html>

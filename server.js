@@ -43,6 +43,15 @@ app.use(
   })
 );
 
+// Middleware untuk memeriksa autentikasi
+function checkAuth(req, res, next) {
+  if (!req.session.userId) {
+    req.session.redirectTo = req.originalUrl; // Simpan URL tujuan
+    return res.redirect('/login');
+  }
+  next();
+}
+
 // Route untuk halaman index (halaman utama)
 app.get("/", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Mengecek session user
@@ -54,14 +63,50 @@ app.get("/", (req, res) => {
   });
 });
 
+// Route untuk menghapus akun
+app.post("/delete-account", async (req, res) => {
+  const userId = req.session.userId;
+
+  if (!userId) {
+    return res.status(401).send("Anda harus login untuk menghapus akun.");
+  }
+
+  try {
+    // Hapus akun pengguna berdasarkan userId
+    await pool.query("DELETE FROM users WHERE id = $1", [userId]);
+
+    // Hapus session setelah penghapusan akun berhasil
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Gagal menghapus session.");
+      }
+      res.redirect("/"); // Kembali ke halaman utama
+    });
+  } catch (error) {
+    console.error("Error saat menghapus akun:", error);
+    res.status(500).send("Terjadi kesalahan saat menghapus akun.");
+  }
+});
+
 // Halaman Signup
 app.get("/signup", (req, res) => {
-  res.render("signup", { title: "Halaman Signup" });
+  const loggedIn = req.session.userId ? true : false;
+  res.render("signup", {
+    title: "FitSteps: Signup",
+    loggedIn: loggedIn,
+  });
 });
 
 // Halaman Login
 app.get("/login", (req, res) => {
-  res.render("login", { title: "Halaman Login" });
+  const loggedIn = req.session.userId ? true : false;
+  const error = req.query.error || false; // Capture the error query parameter
+  res.render("login", {
+    title: "FitSteps: Login",
+    loggedIn: loggedIn,
+    error: error, // Pass the error flag to the view
+  });
 });
 
 app.get("/profile", checkAuth, async (req, res) => {
@@ -98,11 +143,6 @@ app.get("/footer", (req, res) => {
 
 app.get("/newsletter-form", (req, res) => {
   res.render("newsletter-form");
-});
-
-// Halaman untuk ganti password
-app.get("/change-password", checkAuth, (req, res) => {
-  res.render("change-password", { title: "Ganti Password" });
 });
 
 app.get("/contact-us", (req, res) => {
@@ -333,23 +373,34 @@ app.get("/trendy-shoes", (req, res) => {
   });
 });
 
-app.get("/forms", (req, res) => {
+app.get("/forms", checkAuth, (req, res) => {
   const loggedIn = req.session.userId ? true : false;
-  res.render("Form Events", { 
-    title: "Join Event Form" ,
+  res.render("Form Events", {
+    title: "Join Event Form",
     loggedIn: loggedIn,
   });
 });
 
-// Route untuk menangani POST request ganti password
 app.post("/change-password", checkAuth, async (req, res) => {
   const { oldPassword, newPassword, confirmPassword } = req.body;
   const userId = req.session.userId;
 
   try {
-    // Validasi apakah password baru dan konfirmasinya cocok
+    // Validasi input
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      return res.status(400).send("Semua bidang harus diisi.");
+    }
+
+    if (newPassword.length < 8) {
+      return res
+        .status(400)
+        .send("Password baru harus memiliki minimal 8 karakter.");
+    }
+
     if (newPassword !== confirmPassword) {
-      return res.send("Password baru dan konfirmasi password tidak cocok.");
+      return res
+        .status(400)
+        .send("Password baru dan konfirmasi password tidak cocok.");
     }
 
     // Ambil password lama dari database
@@ -357,31 +408,38 @@ app.post("/change-password", checkAuth, async (req, res) => {
       "SELECT password FROM users WHERE id = $1",
       [userId]
     );
-    const user = result.rows[0];
 
+    const user = result.rows[0];
     if (!user) {
       return res.status(404).send("Pengguna tidak ditemukan.");
     }
 
-    // Bandingkan password lama dengan yang ada di database
+    // Verifikasi password lama
     const isOldPasswordCorrect = await bcrypt.compare(
       oldPassword,
       user.password
     );
     if (!isOldPasswordCorrect) {
-      return res.send("Password lama salah.");
+      return res.status(400).send("Password lama salah.");
+    }
+
+    if (oldPassword === newPassword) {
+      return res
+        .status(400)
+        .send("Password baru tidak boleh sama dengan password lama.");
     }
 
     // Hash password baru
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
-    // Update password baru di database
+    // Update password di database
     await pool.query("UPDATE users SET password = $1 WHERE id = $2", [
       hashedNewPassword,
       userId,
     ]);
 
-    res.send("Password berhasil diganti.");
+    // Kirim respons sukses
+    res.status(200).send("Password berhasil diganti.");
   } catch (error) {
     console.error("Error ganti password:", error);
     res.status(500).send("Terjadi kesalahan saat mengganti password.");
@@ -406,13 +464,15 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+
 // Middleware untuk mengecek apakah user sudah login
 function checkAuth(req, res, next) {
   if (!req.session.userId) {
-    return res.redirect("/login"); // Redirect ke halaman login jika belum login
+    return res.redirect("/login?error=login"); //
   }
   next();
 }
+
 
 // Tambahkan route untuk logout
 app.get("/logout", (req, res) => {
@@ -420,7 +480,7 @@ app.get("/logout", (req, res) => {
     if (err) {
       console.error("Error during logout:", err);
     }
-    res.redirect("/login"); // Arahkan ke halaman login setelah logout
+    res.redirect("/");
   });
 });
 
@@ -437,9 +497,9 @@ app.post("/login", async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       req.session.userId = user.id; // Menyimpan ID user di session
       req.session.namaLengkap = user.nama_lengkap; // Menyimpan Nama Lengkap di session
-      res.redirect("/"); // Setelah login berhasil, arahkan ke halaman upload
+      res.redirect("/profile"); // Setelah login berhasil, arahkan ke halaman profile
     } else {
-      res.send("Email atau password salah.");
+      res.redirect("/login?error=true"); // Redirect with an error flag
     }
   } catch (error) {
     console.error("Error logging in:", error);
@@ -472,13 +532,24 @@ app.post('/forms', upload.single('foto_diri'), async (req, res) => {
   const { nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan } = req.body;
 
   // Cek jika data tidak kosong
-  if (!nama_lengkap || !jenis_kelamin || !usia || !nomor_telepon || !email || !alamat || !kategori_acara || !riwayat_kesehatan) {
-    return res.send('Data tidak lengkap!');
+  if (
+    !nama_lengkap ||
+    !jenis_kelamin ||
+    !usia ||
+    !nomor_telepon ||
+    !email ||
+    !alamat ||
+    !kategori_acara ||
+    !riwayat_kesehatan
+  ) {
+    return res.send("Data tidak lengkap!");
   }
 
   const foto_diri = req.file ? req.file.filename : null; // Nama file foto yang diunggah
 
-  // Log data yang akan disimpan
+  const userId = req.session.userId;
+ 
+  // Log data yang akan disimpan (untuk debugging)
   console.log('Data yang akan disimpan:', {
     nama_lengkap,
     jenis_kelamin,
@@ -488,19 +559,21 @@ app.post('/forms', upload.single('foto_diri'), async (req, res) => {
     alamat,
     kategori_acara,
     riwayat_kesehatan,
-    foto_url: foto_diri ? `uploads/${foto_diri}` : null
+    foto_url: foto_diri ? `uploads/${foto_diri}` : null,
+    userId
   });
 
   // Simpan data ke dalam database PostgreSQL
-  const query = 'INSERT INTO forms (nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
-  const values = [nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_diri ? `uploads/${foto_diri}` : null];
+  const query = 'INSERT INTO forms (user_id, nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+  const values = [userId, nama_lengkap, jenis_kelamin, usia, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_diri ? `uploads/${foto_diri}` : null];
 
   try {
     await pool.query(query, values); // Menyimpan data ke PostgreSQL
-    res.redirect('/'); // Redirect ke halaman utama setelah registrasi
+    res.json({ success: true });
   } catch (error) {
-    console.error('Error inserting data into database:', error.message); // Menampilkan pesan error
-    res.send('Gagal menyimpan data registrasi.');
+    console.error('Error inserting data into database:', error.message);
+    res.status(500).json({ success: false, message: 'Gagal menyimpan data registrasi.' });
+
   }
 });
 

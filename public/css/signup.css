@@ -6,8 +6,8 @@ html {
   font-family: "Arial", sans-serif;
 }
 
-/* Center the login form in the page */
-.container-login {
+/* Center the signup form in the page */
+.container-signup {
   max-width: 400px;
   margin: 50px auto;
   padding: 30px;
@@ -19,29 +19,29 @@ html {
 }
 
 /* Heading styles */
-.container-login h1 {
+.container-signup h1 {
   font-size: 28px;
   margin-bottom: 20px;
   color: #333333;
 }
 
 /* Form styles */
-.form-login {
+.container-signup form {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  text-align: left;
 }
 
 /* Label styles */
-.form-login label {
-  text-align: left;
+.container-signup label {
   font-weight: bold;
   font-size: 14px;
   color: #555555;
 }
 
 /* Input field styles */
-.input-field {
+.container-signup input {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -50,50 +50,52 @@ html {
   transition: border-color 0.3s ease;
 }
 
-.input-field:focus {
+.container-signup input:focus {
   border-color: #007bff;
   outline: none;
 }
 
 /* Button styles */
-.btn-submit {
+.container-signup button {
   padding: 10px;
   font-size: 16px;
   font-weight: bold;
   color: #ffffff;
-  background-color: #007bff;
+  background-color: #00cc22;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.btn-submit:hover {
-  background-color: #0056b3;
+.container-signup button:hover {
+  background-color: #128a00;
 }
 
-/* Signup link styles */
-.signup-link {
-  display: block;
+/* Login link styles */
+.login-link {
   margin-top: 20px;
   font-size: 14px;
+}
+
+.login-link a {
   color: #007bff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.signup-link:hover {
+.login-link a:hover {
   color: #0056b3;
 }
 
 /* Responsive Design */
 @media (max-width: 480px) {
-  .container {
+  .container-signup {
     padding: 20px;
     width: 90%;
   }
 
-  .container h1 {
+  .container-signup h1 {
     font-size: 24px;
   }
 }
@@ -105,7 +107,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("../assets/images/exercise-pic/EXERCISE1.jpg"); /* Ganti dengan path gambar Anda */
+  background-image: url("../assets/images/exercise-pic/EXERCISE3.jpg"); /* Ganti dengan path gambar Anda */
   background-size: cover; /* Pastikan gambar menutupi seluruh layar */
   background-position: center;
   background-repeat: no-repeat;

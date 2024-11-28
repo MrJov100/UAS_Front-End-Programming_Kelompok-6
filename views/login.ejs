@@ -7,39 +7,106 @@
     <link rel="stylesheet" href="/css/login.css" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/theme.css" />
-    <!-- Path CSS yang sama seperti di index.ejs -->
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Include SweetAlert2 -->
   </head>
 
   <body>
-    <body>
-      <div class="container">
-        <!-- Sesuaikan dengan struktur di index.ejs -->
-        <h1>Login</h1>
-        <form action="/login" method="POST" class="form-login">
-          <label for="email">Email:</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            required
-            class="input-field"
-          />
-          <br />
-          <label for="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            required
-            class="input-field"
-          />
-          <br />
-          <button type="submit" class="btn-submit">Login</button>
-        </form>
-        <a href="/signup" class="signup-link"
-          >Don't have an account? Sign up here</a
-        >
+    <div class="background-image"></div>
+
+    <nav id="navbar">
+      <input type="checkbox" id="check" />
+
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <a href="/" id="logo"
+        ><img src="/assets/images/logo.png" alt="FitSteps Logo"
+      /></a>
+
+      <div class="navbar-biasa">
+        <a href="/">Home</a>
+        <a href="/tips-workout">Tips & Workout</a>
+        <a href="/trendy-shoes">Trendy Shoes</a>
+        <a href="/health-benefits">Health Benefits</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/events">Upcoming Events</a>
+
+        <% if (loggedIn) { %>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+        <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Daftar</a>
+        <% } %>
+
+        <!-- Tombol Mode Terang/Gelap -->
+        <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
       </div>
-    </body>
+
+      <a href="/" id="moto"
+        ><img src="/assets/images/moto.png" alt="FitSteps Moto"
+      /></a>
+    </nav>
+
+    <div class="container-login">
+      <!-- Sesuaikan dengan struktur di index.ejs -->
+      <h1>Login</h1>
+      <form action="/login" method="POST" class="form-login">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          required
+          class="input-field"
+        />
+        <br />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          required
+          class="input-field"
+        />
+        <br />
+        <button type="submit" class="btn-submit">Login</button>
+      </form>
+      <a href="/signup" class="signup-link"
+        >Don't have an account? Sign up here</a
+      >
+    </div>
+
+    <div id="footer-placeholder"><%- include('footer') %></div>
+
+    <!-- Jika password atau email salah, maka akan muncul error -->
+    <% if (error) { %>
+    <script>
+      Swal.fire({
+        title: "Kesalahan!",
+        text: "Email atau password salah.",
+        icon: "error",
+        confirmButtonText: "Coba lagi",
+      });
+    </script>
+    <% } %>
+
+    <!-- jika user coba masuk profile tanpa login, maka akan muncul peringatan -->
+    <% if (error === 'login') { %>
+    <script>
+      Swal.fire({
+        title: "Perhatian!",
+        text: "Anda harus login terlebih dahulu untuk mengakses halaman ini.",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+    </script>
+    <% } %>
   </body>
+  <script src="/scripts/theme-toggle.js"></script>
+  <script src="/scripts/footer.js"></script>
 </html>
