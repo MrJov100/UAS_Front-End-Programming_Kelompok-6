@@ -13,7 +13,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "FitSteps",
-  password: "ce171431",
+  password: "jovandi", //pass elys: ce171431
   port: 5432,
 });
 
@@ -385,7 +385,6 @@ app.post("/add-post", checkAuth, upload.single("photo"), async (req, res) => {
 });
 
 // Halaman Menampilkan Semua Post
-// Halaman Menampilkan Semua Post
 app.get("/fit-share", checkAuth, async (req, res) => {
   try {
     const userId = req.session.userId;
@@ -401,16 +400,13 @@ app.get("/fit-share", checkAuth, async (req, res) => {
       [userId]
     );
 
-    if (result.rows.length > 0) {
-      res.render("fitshare-posts", {
-        title: "Semua Post",
-        posts: result.rows,
-        loggedIn: true,
-        namaLengkap: req.session.namaLengkap, // User's full name (optional, if you want to show it at the top)
-      });
-    } else {
-      res.status(404).send("User has no posts.");
-    }
+    // Render halaman dengan data posts, kosongkan jika tidak ada postingan
+    res.render("fitshare-posts", {
+      title: "Semua Post",
+      posts: result.rows, // Akan kosong jika user tidak memiliki post
+      loggedIn: true,
+      namaLengkap: req.session.namaLengkap, // User's full name (opsional)
+    });
   } catch (error) {
     console.error("Error fetching posts:", error);
     res.status(500).send("Error fetching posts.");
@@ -472,7 +468,6 @@ app.post("/delete-post/:id", checkAuth, async (req, res) => {
     res.status(500).send("Error deleting post.");
   }
 });
-
 
 // Menangani unggahan foto dan caption
 app.post("/upload", upload.single("photo"), async (req, res) => {
