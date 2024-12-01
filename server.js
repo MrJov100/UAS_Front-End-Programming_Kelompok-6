@@ -565,7 +565,10 @@ app.post("/forms", upload.single("foto_diri"), async (req, res) => {
 });
 
 app.use((req, res) => {
-  res.status(404).send("<h1>404 - Page Not Found</h1>");
+  // Assuming you have a way to check if the user is logged in
+  const loggedIn = req.isAuthenticated ? req.isAuthenticated() : false;
+
+  res.status(404).render("pagenotfound", { loggedIn });
 });
 
 // Start server
