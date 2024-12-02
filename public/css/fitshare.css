@@ -1,164 +1,266 @@
 /* General Reset and Box Sizing */
-*,
-*::before,
-*::after {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
+ 
 body {
   font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
   line-height: 1.6;
-  background-color: #f4f4f4;
-  color: #333;
-  padding: 20px;
-  max-width: 1200px;
-  margin: auto;
 }
-
-h1 {
-  color: #333;
-  font-size: 2rem;
-  margin-bottom: 20px;
+ 
+/* Color Variables */
+:root {
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --success-color: #28a745;
+  --success-hover: #218838;
+  --danger-color: #dc3545;
+  --danger-hover: #c82333;
+  --background-light: #f9f9f9;
+  --border-color: #ddd;
+  --text-muted: #555;
 }
-
-p {
-  font-size: 1rem;
-  margin-bottom: 20px;
-}
-
-/* Links */
-a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* Header Section */
-h1 {
-  color: #333;
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-}
-
-/* Post Section */
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  background: #fff;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-}
-
-li img {
-  border-radius: 8px;
-  margin-right: 20px;
-  width: 100px; /* Instagram-style square image */
-  height: 100px; /* Instagram-style square image */
-  object-fit: cover; /* Ensures the image covers the box */
-  transition: transform 0.3s ease; /* Smooth zoom effect */
-}
-
-li img:hover {
-  transform: scale(1.1); /* Zoom in on hover */
-}
-
-li p {
-  flex-grow: 1;
-  font-size: 1rem;
-  margin: 0;
-}
-
-button {
-  background-color: #007bff;
-  color: #fff;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-form {
-  margin-top: 20px;
+ 
+/* Wrapper utama */
+.post-container {
+  max-width: 800px;
+  margin: 50px auto;
   padding: 20px;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
-
-form label {
-  font-size: 1rem;
-  margin-bottom: 8px;
-  display: block;
+ 
+/* Tombol tambah postingan */
+.btn-add-post {
+  display: inline-block;
+  margin-bottom: 30px;
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
 }
-
-form input,
-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+ 
+.btn-add-post:hover {
+  background-color: var(--primary-hover);
 }
-
-form button {
-  width: 100%;
-  padding: 10px;
-  background-color: #28a745;
+ 
+/* Daftar postingan */
+.post-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+ 
+/* Setiap item postingan */
+.post-item {
+  border: 1px solid var(--border-color);
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--background-light);
+  text-align: left;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+ 
+/* Aksi (dropdown untuk edit dan delete) */
+.post-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+ 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+ 
+.dropdown-button {
+  padding: 8px 12px;
+  background-color: var(--primary-color);
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
 }
-
-form button:hover {
-  background-color: #218838;
+ 
+.dropdown-button:hover {
+  background-color: var(--primary-hover);
 }
-
-/* Login/Not Logged In Message */
-p {
-  font-size: 1rem;
-  color: #dc3545;
+ 
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
-
-/* Responsive Design */
+ 
+.dropdown-menu .dropdown-item {
+  padding: 10px 15px;
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+}
+ 
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f2f2f2;
+}
+ 
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+ 
+/* Konten postingan */
+.post-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ 
+/* Gambar postingan */
+.post-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ 
+.post-image-img {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+}
+ 
+/* Teks caption */
+.caption-text {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  color: var(--primary-color);
+}
+ 
+/* Penulis postingan */
+.post-author {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+ 
+/* Pesan jika tidak ada postingan */
+.no-posts-message {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 18px;
+  margin-top: 50px;
+}
+ 
+/* Responsive Layout for Smaller Devices */
 @media (max-width: 768px) {
-  body {
+  /* Post Container */
+  .post-container {
+    padding: 15px;
+  }
+ 
+  /* Tombol tambah postingan */
+  .btn-add-post {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+ 
+  /* Post Items */
+  .post-item {
+    padding: 15px;
+  }
+ 
+  /* Gambar Postingan */
+  .post-image {
+    max-width: 100%;
+  }
+ 
+  .post-image-img {
+    max-height: 300px;
+  }
+ 
+  /* Caption Text */
+  .caption-text {
+    font-size: 16px;
+  }
+ 
+  /* Dropdown Button */
+  .dropdown-button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+ 
+  /* Dropdown Menu Items */
+  .dropdown-menu .dropdown-item {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+ 
+@media (max-width: 480px) {
+  /* Post Container */
+  .post-container {
     padding: 10px;
   }
-
-  li {
-    flex-direction: column;
-    align-items: flex-start;
+ 
+  /* Tombol tambah postingan */
+  .btn-add-post {
+    padding: 6px 10px;
+    font-size: 12px;
   }
-
-  li img {
-    width: 100%;
-    height: auto;
-    margin-right: 0;
-    margin-bottom: 15px;
+ 
+  /* Post Items */
+  .post-item {
+    padding: 10px;
   }
-
-  form {
-    margin-top: 10px;
+ 
+  /* Gambar Postingan */
+  .post-image {
+    max-width: 100%;
   }
-
-  form button {
-    width: auto;
+ 
+  .post-image-img {
+    max-height: 250px;
+  }
+ 
+  /* Caption Text */
+  .caption-text {
+    font-size: 14px;
+  }
+ 
+  /* Dropdown Button */
+  .dropdown-button {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+ 
+  /* Dropdown Menu Items */
+  .dropdown-menu .dropdown-item {
+    font-size: 10px;
+    padding: 6px 10px;
   }
 }
