@@ -1,103 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Read Forms</title>
-    <link rel="stylesheet" href="/css/readForms.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/css/readForms.css" />
+  </head>
+  <body>
     <h1>Data Forms Saya</h1>
     <% if (forms.length > 0){ %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Form Id</th>
-                    <th>Nama Lengkap</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Usia</th>
-                    <th>Nomor Negara</th>
-                    <th>Nomor Telepon</th>
-                    <th>Email</th>
-                    <th>Alamat</th>
-                    <th>Kategori Acara</th>
-                    <th>Riwayat Kesehatan</th>
-                    <th>Foto Diri</th>
-                    <th>Delete Event</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% forms.forEach(form => { %>
-                    <tr>
-                        <td><%= form.form_id %></td>
-                        <td><%= form.nama_lengkap %></td>
-                        <td><%= form.jenis_kelamin %></td>
-                        <td><%= form.usia %></td>
-                        <td><%= form.kode_negara %></td>
-                        <td><%= form.nomor_telepon %></td>
-                        <td><%= form.email %></td>
-                        <td><%= form.alamat %></td>
-                        <td><%= form.kategori_acara %></td>
-                        <td><%= form.riwayat_kesehatan %></td>
-                        <td>
-                            <% if (form.foto_url) { %>
-                              <img src="/<%= form.foto_url %>" alt="Foto Diri" width="100" />
-                            <% } else { %>
-                              Tidak ada foto
-                            <% } %>
-                        </td>
-                        <td>
-                            <button class="delete-form-button" data-form-id="<%= form.form_id %>">Hapus</button>
-                        </td>
-                    </tr>
-                <% });  %>
-            </tbody>
-        </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Form Id</th>
+          <th>Nama Lengkap</th>
+          <th>Jenis Kelamin</th>
+          <th>Usia</th>
+          <th>Nomor Negara</th>
+          <th>Nomor Telepon</th>
+          <th>Email</th>
+          <th>Alamat</th>
+          <th>Kategori Acara</th>
+          <th>Riwayat Kesehatan</th>
+          <th>Foto Diri</th>
+          <th>Delete Event</th>
+          <th>Edit Form</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% forms.forEach(form => { %>
+        <tr>
+          <td><%= form.form_id %></td>
+          <td><%= form.nama_lengkap %></td>
+          <td><%= form.jenis_kelamin %></td>
+          <td><%= form.usia %></td>
+          <td><%= form.kode_negara %></td>
+          <td><%= form.nomor_telepon %></td>
+          <td><%= form.email %></td>
+          <td><%= form.alamat %></td>
+          <td><%= form.kategori_acara %></td>
+          <td><%= form.riwayat_kesehatan %></td>
+          <td>
+            <% if (form.foto_url) { %>
+            <img src="/<%= form.foto_url %>" alt="Foto Diri" width="100" />
+            <% } else { %> Tidak ada foto <% } %>
+          </td>
+          <td>
+            <button
+              class="delete-form-button"
+              data-form-id="<%= form.form_id %>"
+            >
+              Hapus
+            </button>
+          </td>
+          <td>
+            <a href="/forms/<%= form.form_id %>/edit" class="edit-form-link"
+              >Edit Form</a
+            >
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
     <% } else { %>
-        <p>Tidak ada data forms untuk user ini.</p>
+    <p>Tidak ada data forms untuk user ini.</p>
     <% } %>
-
+ 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          const deleteButtons = document.querySelectorAll('.delete-form-button');
-
-          deleteButtons.forEach(button => {
-            button.addEventListener('click', async (event) => {
-              const formId = event.target.getAttribute('data-form-id');
-              console.log("Form ID yang dikirim:", formId);
-
-              if (!formId) {
-                alert("Form ID tidak ditemukan.");
-                return;
-              }
-
-              const confirmDelete = confirm("Apakah Anda yakin ingin menghapus form ini?");
-              if (!confirmDelete) return;
-
-              try {
-                const response = await fetch('/delete-form', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({ formId })
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
-                  alert(result.message);
-                  location.reload();
-                } else {
-                  alert(result.message || 'Gagal menghapus form.');
-                }
-              } catch (error) {
-                console.error("Error saat menghapus form:", error);
-                alert("Terjadi kesalahan. Silakan coba lagi.");
-              }
+      // Mendapatkan semua tombol hapus
+      const deleteButtons = document.querySelectorAll(".delete-form-button");
+ 
+      deleteButtons.forEach((button) => {
+        button.addEventListener("click", async () => {
+          const formId = button.dataset.formId;
+ 
+          // Konfirmasi pengguna sebelum menghapus
+          const confirmation = confirm(
+            "Apakah Anda yakin ingin menghapus form ini?"
+          );
+          if (!confirmation) return;
+ 
+          try {
+            const response = await fetch(`/forms/${formId}`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
             });
-          });
+ 
+            const result = await response.json();
+ 
+            if (result.success) {
+              alert("Form berhasil dihapus.");
+              // Hapus baris tabel dari DOM
+              button.closest("tr").remove();
+            } else {
+              alert(`Gagal menghapus form: ${result.message}`);
+            }
+          } catch (error) {
+            console.error("Error saat menghapus form:", error);
+            alert("Terjadi kesalahan saat menghapus form.");
+          }
         });
+      });
     </script>
-</body>
+  </body>
 </html>

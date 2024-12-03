@@ -4,19 +4,19 @@ const path = require("path");
 const multer = require("multer");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
-
+ 
 const app = express();
 const port = 3000;
-
+ 
 // Konfigurasi koneksi ke PostgreSQL
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "FitSteps",
-  password: "ShirleyUntar",
+  password: "ShirleyUntar", //ShirleyUntar
   port: 5432,
 });
-
+ 
 // Konfigurasi multer untuk menyimpan file yang diunggah
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -27,12 +27,12 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-
+ 
 // Configure ejs and static files
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "views/public")));
 app.use(express.static(path.join(__dirname, "public")));
-
+ 
 // Middleware untuk menangani form data
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -42,16 +42,16 @@ app.use(
     saveUninitialized: true,
   })
 );
-
+ 
 // Middleware untuk memeriksa autentikasi
 function checkAuth(req, res, next) {
   if (!req.session.userId) {
     req.session.redirectTo = req.originalUrl; // Simpan URL tujuan
-    return res.redirect('/login');
+    return res.redirect("/login");
   }
   next();
 }
-
+ 
 // Route untuk halaman index (halaman utama)
 app.get("/", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Mengecek session user
@@ -62,19 +62,19 @@ app.get("/", (req, res) => {
     namaLengkap: namaLengkap,
   });
 });
-
+ 
 // Route untuk menghapus akun
 app.post("/delete-account", async (req, res) => {
   const userId = req.session.userId;
-
+ 
   if (!userId) {
     return res.status(401).send("Anda harus login untuk menghapus akun.");
   }
-
+ 
   try {
     // Hapus akun pengguna berdasarkan userId
     await pool.query("DELETE FROM users WHERE id = $1", [userId]);
-
+ 
     // Hapus session setelah penghapusan akun berhasil
     req.session.destroy((err) => {
       if (err) {
@@ -88,41 +88,7 @@ app.post("/delete-account", async (req, res) => {
     res.status(500).send("Terjadi kesalahan saat menghapus akun.");
   }
 });
-
-app.post("/delete-form", async (req, res) => {
-  console.log("Request body:", req.body);
-  const userId = req.session.userId; // Pastikan user sudah login
-  const { formId } = req.body;
-
-  console.log("Form ID diterima:", formId); // Debug log untuk memeriksa formId
-
-  if (!userId) {
-    return res.status(401).json({ message: "Anda harus login untuk menghapus form." });
-  }
-
-  if (!formId) {
-    return res.status(400).json({ message: "Form ID tidak diberikan." });
-  }
-
-  try {
-    const result = await pool.query(
-      "DELETE FROM forms WHERE form_id = $1 AND user_id = $2 RETURNING *",
-      [formId, userId]
-    );
-
-    if (result.rowCount === 0) {
-      return res.status(404).json({ message: "Form tidak ditemukan atau Anda tidak memiliki izin." });
-    }
-
-    res.json({ success: true, message: "Form berhasil dihapus." });
-  } catch (error) {
-    console.error("Error saat menghapus form:", error);
-    res.status(500).json({ message: "Terjadi kesalahan saat menghapus form." });
-  }
-});
-
-
-
+ 
 // Halaman Signup
 app.get("/signup", (req, res) => {
   const loggedIn = req.session.userId ? true : false;
@@ -131,7 +97,7 @@ app.get("/signup", (req, res) => {
     loggedIn: loggedIn,
   });
 });
-
+ 
 // Halaman Login
 app.get("/login", (req, res) => {
   const loggedIn = req.session.userId ? true : false;
@@ -142,7 +108,7 @@ app.get("/login", (req, res) => {
     error: error, // Pass the error flag to the view
   });
 });
-
+ 
 app.get("/profile", checkAuth, async (req, res) => {
   const loggedIn = req.session.userId ? true : false;
   const userId = req.session.userId;
@@ -153,7 +119,7 @@ app.get("/profile", checkAuth, async (req, res) => {
       [userId]
     );
     const user = result.rows[0];
-
+ 
     if (user) {
       res.render("profile", {
         title: "Halaman Profil",
@@ -169,16 +135,16 @@ app.get("/profile", checkAuth, async (req, res) => {
     res.status(500).send("Error fetching user profile.");
   }
 });
-
+ 
 // Route untuk melayani konten footer
 app.get("/footer", (req, res) => {
   res.render("footer"); // Merender footer.ejs
 });
-
+ 
 app.get("/newsletter-form", (req, res) => {
   res.render("newsletter-form");
 });
-
+ 
 app.get("/contact-us", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
   res.render("Contact Us", {
@@ -186,7 +152,7 @@ app.get("/contact-us", (req, res) => {
     loggedIn: loggedIn,
   });
 });
-
+ 
 app.get("/events", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
   res.render("events", {
@@ -194,7 +160,7 @@ app.get("/events", (req, res) => {
     loggedIn: loggedIn,
   });
 });
-
+ 
 app.get("/health-benefits", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
   res.render("Health Benefits", {
@@ -202,7 +168,7 @@ app.get("/health-benefits", (req, res) => {
     loggedIn: loggedIn,
   });
 });
-
+ 
 app.get("/tips-workout", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
   res.render("nav-tips-workout", {
@@ -210,7 +176,7 @@ app.get("/tips-workout", (req, res) => {
     loggedIn: loggedIn,
   });
 });
-
+ 
 app.get("/trendy-shoes", (req, res) => {
   const loggedIn = req.session.userId ? true : false; // Check if the user is logged in
   res.render("nav-trendy-shoes", {
@@ -218,7 +184,7 @@ app.get("/trendy-shoes", (req, res) => {
     loggedIn: loggedIn,
   });
 });
-
+ 
 app.get("/forms", checkAuth, (req, res) => {
   const loggedIn = req.session.userId ? true : false;
   res.render("Form Events", {
@@ -226,57 +192,57 @@ app.get("/forms", checkAuth, (req, res) => {
     loggedIn: loggedIn,
   });
 });
-
-app.get ('/readForms', checkAuth, async (req, res) =>{
-  try{
+ 
+app.get("/readForms", checkAuth, async (req, res) => {
+  try {
     const userId = req.session.userId;
-    if(!userId){
+    if (!userId) {
       return res.status(403).send("Anda tidak memiliki akses.");
     }
-
-    const query ="SELECT * FROM forms WHERE user_id = $1";
+ 
+    const query = "SELECT * FROM forms WHERE user_id = $1";
     const result = await pool.query(query, [userId]);
-
-    res.render('readForms', { forms: result.rows});
-  } catch (error){
+ 
+    res.render("readForms", { forms: result.rows });
+  } catch (error) {
     console.error("Error membaca data forms:", error);
     res.status(500).send("Terjadi kesalahan saat membaca data forms.");
   }
-})
-
+});
+ 
 app.post("/change-password", checkAuth, async (req, res) => {
   const { oldPassword, newPassword, confirmPassword } = req.body;
   const userId = req.session.userId;
-
+ 
   try {
     // Validasi input
     if (!oldPassword || !newPassword || !confirmPassword) {
       return res.status(400).send("Semua bidang harus diisi.");
     }
-
+ 
     if (newPassword.length < 8) {
       return res
         .status(400)
         .send("Password baru harus memiliki minimal 8 karakter.");
     }
-
+ 
     if (newPassword !== confirmPassword) {
       return res
         .status(400)
         .send("Password baru dan konfirmasi password tidak cocok.");
     }
-
+ 
     // Ambil password lama dari database
     const result = await pool.query(
       "SELECT password FROM users WHERE id = $1",
       [userId]
     );
-
+ 
     const user = result.rows[0];
     if (!user) {
       return res.status(404).send("Pengguna tidak ditemukan.");
     }
-
+ 
     // Verifikasi password lama
     const isOldPasswordCorrect = await bcrypt.compare(
       oldPassword,
@@ -285,22 +251,22 @@ app.post("/change-password", checkAuth, async (req, res) => {
     if (!isOldPasswordCorrect) {
       return res.status(400).send("Password lama salah.");
     }
-
+ 
     if (oldPassword === newPassword) {
       return res
         .status(400)
         .send("Password baru tidak boleh sama dengan password lama.");
     }
-
+ 
     // Hash password baru
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-
+ 
     // Update password di database
     await pool.query("UPDATE users SET password = $1 WHERE id = $2", [
       hashedNewPassword,
       userId,
     ]);
-
+ 
     // Kirim respons sukses
     res.status(200).send("Password berhasil diganti.");
   } catch (error) {
@@ -308,16 +274,16 @@ app.post("/change-password", checkAuth, async (req, res) => {
     res.status(500).send("Terjadi kesalahan saat mengganti password.");
   }
 });
-
+ 
 // Proses Signup
 app.post("/signup", async (req, res) => {
   const { nama_lengkap, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
-
+ 
   const query =
     "INSERT INTO users(nama_lengkap, email, password) VALUES($1, $2, $3)";
   const values = [nama_lengkap, email, hashedPassword];
-
+ 
   try {
     await pool.query(query, values);
     res.redirect("/login"); // Setelah signup, arahkan ke halaman login
@@ -326,7 +292,7 @@ app.post("/signup", async (req, res) => {
     res.send("Terjadi kesalahan saat signup.");
   }
 });
-
+ 
 // Middleware untuk mengecek apakah user sudah login
 function checkAuth(req, res, next) {
   if (!req.session.userId) {
@@ -334,7 +300,7 @@ function checkAuth(req, res, next) {
   }
   next();
 }
-
+ 
 // Tambahkan route untuk logout
 app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
@@ -344,7 +310,7 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
   });
 });
-
+ 
 // Halaman Upload (hanya dapat diakses jika login)
 app.get("/upload", checkAuth, async (req, res) => {
   try {
@@ -354,7 +320,7 @@ app.get("/upload", checkAuth, async (req, res) => {
       console.error("User ID not found in session.");
       return res.redirect("/login");
     }
-
+ 
     // Fetch the user's full name
     const userResult = await pool.query(
       "SELECT nama_lengkap FROM users WHERE id = $1",
@@ -364,15 +330,15 @@ app.get("/upload", checkAuth, async (req, res) => {
       console.error(`No user found with ID: ${userId}`);
       return res.status(404).send("User not found.");
     }
-
+ 
     const user = userResult.rows[0];
-
+ 
     // Fetch the uploads associated with the user
     const uploadsResult = await pool.query(
       "SELECT * FROM uploads WHERE id_user = $1",
       [userId]
     );
-
+ 
     // Render the upload page with user details and uploads
     res.render("upload", {
       title: "Upload Foto dan Caption",
@@ -384,17 +350,17 @@ app.get("/upload", checkAuth, async (req, res) => {
     res.status(500).send("Error loading the upload page.");
   }
 });
-
+ 
 // Proses Login
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const query = "SELECT * FROM users WHERE email = $1";
   const values = [email];
-
+ 
   try {
     const result = await pool.query(query, values);
     const user = result.rows[0];
-
+ 
     if (user && (await bcrypt.compare(password, user.password))) {
       req.session.userId = user.id; // Menyimpan ID user di session
       req.session.namaLengkap = user.nama_lengkap; // Menyimpan Nama Lengkap di session
@@ -407,40 +373,101 @@ app.post("/login", async (req, res) => {
     res.send("Terjadi kesalahan saat login.");
   }
 });
-
+ 
 // Menangani unggahan foto dan caption
 app.post("/upload", upload.single("photo"), async (req, res) => {
   if (!req.session.userId) {
     return res.redirect("/login"); // Jika tidak login, redirect ke halaman login
   }
-
+ 
   const { caption } = req.body;
   const photo = req.file ? req.file.filename : null;
-
+ 
   if (photo) {
     const query =
       "INSERT INTO uploads(id_user, caption, photo_url) VALUES($1, $2, $3)";
     const values = [req.session.userId, caption, `uploads/${photo}`];
-
+ 
     try {
       await pool.query(query, values);
     } catch (error) {
       console.error("Error inserting data into database:", error);
     }
   }
-
+ 
   res.redirect("/upload");
 });
-
-app.post('/forms', upload.single('foto_diri'), async (req, res) => {
-  const { nama_lengkap, jenis_kelamin, usia, kode_negara,nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan } = req.body;
-
-  // Cek jika data tidak kosong
+ 
+// Endpoint untuk menghapus form
+app.delete("/forms/:form_id", checkAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const formId = req.params.form_id;
+ 
+    if (!userId) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Akses ditolak." });
+    }
+ 
+    // Hapus form berdasarkan user_id dan form_id
+    const query = "DELETE FROM forms WHERE user_id = $1 AND form_id = $2";
+    const result = await pool.query(query, [userId, formId]);
+ 
+    if (result.rowCount > 0) {
+      res.json({ success: true, message: "Form berhasil dihapus." });
+    } else {
+      res
+        .status(404)
+        .json({ success: false, message: "Form tidak ditemukan." });
+    }
+  } catch (error) {
+    console.error("Error menghapus data form:", error.message);
+    res.status(500).json({ success: false, message: "Terjadi kesalahan." });
+  }
+});
+ 
+app.get("/forms/:form_id/edit", checkAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const formId = req.params.form_id;
+ 
+    if (!userId) {
+      return res.status(403).send("Akses ditolak.");
+    }
+ 
+    const query = "SELECT * FROM forms WHERE user_id = $1 AND form_id = $2";
+    const result = await pool.query(query, [userId, formId]);
+ 
+    if (result.rows.length === 0) {
+      return res.status(404).send("Form tidak ditemukan.");
+    }
+ 
+    res.render("editForms", { form: result.rows[0] });
+  } catch (error) {
+    console.error("Error memuat halaman edit form:", error.message);
+    res.status(500).send("Terjadi kesalahan saat memuat halaman.");
+  }
+});
+ 
+app.post("/forms", upload.single("foto_diri"), async (req, res) => {
+  const {
+    nama_lengkap,
+    jenis_kelamin,
+    usia,
+    kode_negara,
+    nomor_telepon,
+    email,
+    alamat,
+    kategori_acara,
+    riwayat_kesehatan,
+  } = req.body;
+ 
   if (
     !nama_lengkap ||
     !jenis_kelamin ||
     !usia ||
-    !kode_negara||
+    !kode_negara ||
     !nomor_telepon ||
     !email ||
     !alamat ||
@@ -449,62 +476,90 @@ app.post('/forms', upload.single('foto_diri'), async (req, res) => {
   ) {
     return res.send("Data tidak lengkap!");
   }
-
-  const foto_diri = req.file ? req.file.filename : null; // Nama file foto yang diunggah
-
+ 
+  const foto_diri = req.file ? req.file.filename : null;
+ 
   const userId = req.session.userId;
  
-  // Log data yang akan disimpan (untuk debugging)
-  console.log('Data yang akan disimpan:', {
+  console.log("Data yang akan disimpan:", {
     nama_lengkap,
     jenis_kelamin,
     usia,
-    kode_negara, 
+    kode_negara,
     nomor_telepon,
     email,
     alamat,
     kategori_acara,
     riwayat_kesehatan,
     foto_url: foto_diri ? `uploads/${foto_diri}` : null,
-    userId
+    userId,
   });
-
+ 
   // Simpan data ke dalam database PostgreSQL
-  const query = 'INSERT INTO forms (user_id, nama_lengkap, jenis_kelamin, usia, kode_negara, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
-  const values = [userId, nama_lengkap, jenis_kelamin, usia,kode_negara, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_diri ? `uploads/${foto_diri}` : null];
-
+  const query =
+    "INSERT INTO forms (user_id, nama_lengkap, jenis_kelamin, usia, kode_negara, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)";
+  const values = [
+    userId,
+    nama_lengkap,
+    jenis_kelamin,
+    usia,
+    kode_negara,
+    nomor_telepon,
+    email,
+    alamat,
+    kategori_acara,
+    riwayat_kesehatan,
+    foto_diri ? `uploads/${foto_diri}` : null,
+  ];
+ 
   try {
-    await pool.query(query, values); // Menyimpan data ke PostgreSQL
+    await pool.query(query, values);
     res.json({ success: true });
   } catch (error) {
-    console.error('Error inserting data into database:', error.message);
-    res.status(500).json({ success: false, message: 'Gagal menyimpan data registrasi.' });
-
+    console.error("Error inserting data into database:", error.message);
+    res
+      .status(500)
+      .json({ success: false, message: "Gagal menyimpan data registrasi." });
   }
 });
-
-// app.post("/updateRiwayatKesehatan", async (req, res) => {
-//   const { formId, riwayat } = req.body;
-
-//   if (!formId || !riwayat) {
-//       return res.status(400).json({ success: false, message: "Data tidak lengkap." });
-//   }
-
-//   try {
-//       const query = "UPDATE forms SET riwayat_kesehatan = $1 WHERE id = $2";
-//       await pool.query(query, [riwayat, formId]);
-//       res.status(200).json({ success: true });
-//   } catch (error) {
-//       console.error("Error updating riwayat kesehatan:", error);
-//       res.status(500).json({ success: false, message: "Terjadi kesalahan pada server." });
-//   }
-// });
-
+ 
+app.post("/forms/:form_id", checkAuth, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const formId = req.params.form_id;
+    const { riwayat_kesehatan } = req.body;
+ 
+    if (!userId) {
+      return res.status(403).send("Akses ditolak.");
+    }
+ 
+    if (!riwayat_kesehatan) {
+      return res.status(400).send("Riwayat penyakit tidak boleh kosong.");
+    }
+ 
+    const query =
+      "UPDATE forms SET riwayat_kesehatan = $1 WHERE user_id = $2 AND form_id = $3";
+    const values = [riwayat_kesehatan, userId, formId];
+ 
+    const result = await pool.query(query, values);
+ 
+    if (result.rowCount > 0) {
+      res.redirect("/readForms");
+    } else {
+      res.status(404).send("Form tidak ditemukan.");
+    }
+  } catch (error) {
+    console.error("Error saat mengedit riwayat penyakit:", error.message);
+    res.status(500).send("Terjadi kesalahan saat mengedit data.");
+  }
+});
+ 
 app.use((req, res) => {
   res.status(404).send("<h1>404 - Page Not Found</h1>");
 });
-
+ 
 // Start server
 app.listen(port, () => {
   console.log(`Server berjalan di http://localhost:${port}`);
 });
+ 
