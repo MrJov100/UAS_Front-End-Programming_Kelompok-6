@@ -37,11 +37,12 @@ Langkah - langkah:
    
    -- Tabel untuk isi form
    CREATE TABLE forms (
-      id SERIAL PRIMARY KEY,
+      form_id SERIAL PRIMARY KEY,
       user_id INTEGER REFERENCES users(id),
       nama_lengkap VARCHAR(100) NOT NULL,
       jenis_kelamin VARCHAR(10) NOT NULL,
       usia INT NOT NULL,
+      kode_negara VARCHAR(10) NOT NULL,
       nomor_telepon VARCHAR(15) NOT NULL,
       email VARCHAR(100) NOT NULL,
       alamat TEXT NOT NULL,

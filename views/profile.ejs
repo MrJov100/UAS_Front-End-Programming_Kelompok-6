@@ -58,6 +58,7 @@
         <li><a href="#" data-section="account-details">Detail Akun</a></li>
         <li><a href="#" data-section="change-password">Ganti Password</a></li>
         <li><a href="#" id="forms-link">Formulir</a></li>
+        <li><a href="#" id="history-form">History Form</a></li>
         <li><a href="/logout">Logout</a></li>
         <!-- Tombol Hapus Akun -->
         <li>
@@ -148,6 +149,23 @@
             timerProgressBar: true,
             willClose: () => {
               window.location.href = "/forms";
+            },
+          });
+        });
+
+      document
+        .getElementById("history-form")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+
+          Swal.fire({
+            title: "Anda akan diarahkan ke halaman Riwayat Formulir",
+            text: "Anda akan diarahkan dalam 5 detik.",
+            icon: "info",
+            timer: 5000,
+            timerProgressBar: true,
+            willClose: () => {
+              window.location.href = "/readForms";
             },
           });
         });

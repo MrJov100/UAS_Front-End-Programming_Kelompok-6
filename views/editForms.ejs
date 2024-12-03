@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Form</title>
+    <link rel="stylesheet" href="/css/editForms.css" />
+  </head>
+  <body>
+    <h1>Edit Riwayat Penyakit</h1>
+    <form action="/forms/<%= form.form_id %>" method="POST">
+      <label for="riwayat_kesehatan">Riwayat Penyakit:</label>
+      <textarea
+        id="riwayat_kesehatan"
+        name="riwayat_kesehatan"
+        rows="5"
+        cols="50"
+      >
+<%= form.riwayat_kesehatan %></textarea
+      >
+      <br />
+      <button type="submit">Simpan Perubahan</button>
+      <a href="/readForms">Batal</a>
+    </form>
+  </body>
+</html>
+ 
+has context menu
