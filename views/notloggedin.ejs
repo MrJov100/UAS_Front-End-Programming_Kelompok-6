@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style-trendy.css" />
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/backToTopButton.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+  </head>
+  <body>
+    <!-- TOMBOL Back to Top -->
+    <button id="backToTopBtn" class="back-to-top">
+      <img
+        src="/assets/images/green-up.png"
+        alt="Back to Top"
+        id="backToTopImg"
+      />
+    </button>
+
+    <nav id="navbar">
+      <input type="checkbox" id="check" />
+
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <a href="/" id="logo"
+        ><img src="/assets/images/logo.png" alt="FitSteps Logo"
+      /></a>
+
+      <div class="navbar-biasa">
+        <a href="/">Home</a>
+        <a href="/fit-share">Fit Share</a>
+        <a href="/trendy-shoes">Trendy Shoes</a>
+        <a href="/health-benefits">Health Benefits</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/events">Upcoming Events</a>
+
+        <a href="/login">Login</a>
+        <a href="/signup">Daftar</a>
+
+        <!-- Tombol Mode Terang/Gelap -->
+        <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+      </div>
+
+      <a href="/" id="moto"
+        ><img src="/assets/images/moto.png" alt="FitSteps Moto"
+      /></a>
+    </nav>
+
+    <div
+      class="content-container"
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 300px;
+        margin-bottom: 200px;
+      "
+    >
+      <h2 style="font-weight: bold; padding-bottom: 10px">
+        You haven't log in yet!
+      </h2>
+      <a
+        href="/login"
+        style="
+          background-color: #4bde38;
+          border-radius: 5px;
+          font-size: 16px;
+          padding: 15px;
+          text-decoration: none;
+          color: white;
+        "
+        >Login</a
+      >
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/scripts/theme-toggle.js"></script>
+    <script src="/scripts/footer.js"></script>
+    <script src="/scripts/favorite-shoes.js"></script>
+  </body>
+</html>

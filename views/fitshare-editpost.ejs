@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/fitshare-editpost.css" />
+ 
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+  </head>
+  <body>
+    <nav id="navbar">
+      <input type="checkbox" id="check" />
+ 
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+ 
+      <a href="/" id="logo"
+        ><img src="/assets/images/logo.png" alt="FitSteps Logo"
+      /></a>
+ 
+      <div class="navbar-biasa">
+        <a href="/">Home</a>
+        <a href="/fit-share">Fit Share</a>
+        <a href="/trendy-shoes">Trendy Shoes</a>
+        <a href="/health-benefits">Health Benefits</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/events">Upcoming Events</a>
+ 
+        <% if (loggedIn) { %>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+        <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Daftar</a>
+        <% } %>
+ 
+        <!-- Tombol Mode Terang/Gelap -->
+        <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+      </div>
+ 
+      <a href="/" id="moto"
+        ><img src="/assets/images/moto.png" alt="FitSteps Moto"
+      /></a>
+    </nav>
+ 
+    <% if (loggedIn) { %>
+    <div class="edit-post-container">
+      <h1 class="edit-post-title">Edit Your Post</h1>
+      <form
+        action="/edit-post/<%= post.id %>"
+        method="POST"
+        class="edit-post-form"
+      >
+        <label for="caption" class="edit-post-label">Caption:</label>
+        <textarea
+          id="caption"
+          name="caption"
+          class="edit-post-textarea"
+          required
+        >
+<%= post.caption %></textarea
+        >
+        <br /><br />
+        <button type="submit" class="edit-post-button">Save Changes</button>
+      </form>
+    </div>
+    <% } else { %>
+    <p class="login-message">You need to be logged in to edit a post.</p>
+    <% } %>
+ 
+    <div id="footer-placeholder"><%- include('footer') %></div>
+ 
+    <script src="/scripts/theme-toggle.js"></script>
+    <script src="/scripts/footer.js"></script>
+  </body>
+</html>

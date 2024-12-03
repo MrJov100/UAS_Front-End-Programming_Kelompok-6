@@ -13,7 +13,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "FitSteps",
-  password: "ShirleyUntar", //ShirleyUntar
+  password: "ce171431", //pass elys: ce171431
   port: 5432,
 });
  
@@ -47,7 +47,7 @@ app.use(
 function checkAuth(req, res, next) {
   if (!req.session.userId) {
     req.session.redirectTo = req.originalUrl; // Simpan URL tujuan
-    return res.redirect("/login");
+    return res.redirect("/login?error=login");
   }
   next();
 }
@@ -292,7 +292,7 @@ app.post("/signup", async (req, res) => {
     res.send("Terjadi kesalahan saat signup.");
   }
 });
- 
+
 // Middleware untuk mengecek apakah user sudah login
 function checkAuth(req, res, next) {
   if (!req.session.userId) {
@@ -300,7 +300,7 @@ function checkAuth(req, res, next) {
   }
   next();
 }
- 
+
 // Tambahkan route untuk logout
 app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
@@ -373,7 +373,127 @@ app.post("/login", async (req, res) => {
     res.send("Terjadi kesalahan saat login.");
   }
 });
- 
+
+// Halaman tambah postingan fit-share
+app.get("/add-post", checkAuth, (req, res) => {
+  const loggedIn = req.session.userId ? true : false;
+  res.render("fitshare-addpost", {
+    title: "FitSteps: SHARE",
+    loggedIn: loggedIn,
+  });
+});
+
+// Proses Tambah Post
+app.post("/add-post", checkAuth, upload.single("photo"), async (req, res) => {
+  const { caption } = req.body;
+  const userId = req.session.userId;
+  const photoFilename = req.file ? req.file.filename : null;
+
+  try {
+    await pool.query(
+      "INSERT INTO posts (user_id, caption, photo_filename) VALUES ($1, $2, $3)",
+      [userId, caption, photoFilename]
+    );
+    res.redirect("/fit-share");
+  } catch (error) {
+    console.error("Error adding post:", error);
+    res.status(500).send("Error adding post.");
+  }
+});
+
+// Halaman Menampilkan Semua Post
+app.get("/fit-share", checkAuth, async (req, res) => {
+  try {
+    // Log session data untuk memastikan userId dan namaLengkap ada
+    console.log("User ID:", req.session.userId);
+    console.log("Nama Lengkap:", req.session.namaLengkap);
+
+    const userId = req.session.userId;
+
+    // Fetch posts along with the user's full name
+    const result = await pool.query(
+      `
+      SELECT p.id, p.caption, p.photo_filename, p.created_at, u.nama_lengkap 
+      FROM posts p
+      JOIN users u ON p.user_id = u.id
+      ORDER BY p.created_at DESC
+      `
+    );
+
+    // Log hasil query untuk memastikan data posts berhasil diambil
+    console.log("Fetched posts:", result.rows);
+
+    // Render halaman dengan data posts, kosongkan jika tidak ada postingan
+    res.render("fitshare-posts", {
+      title: "Semua Post",
+      posts: result.rows, // Akan kosong jika user tidak memiliki post
+      loggedIn: true,
+      namaLengkap: req.session.namaLengkap, // User's full name (opsional)
+    });
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    res.status(500).send("Error fetching posts.");
+  }
+});
+
+
+// Halaman Edit Post
+app.get("/edit-post/:id", checkAuth, async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+    const result = await pool.query(
+      "SELECT id, caption FROM posts WHERE id = $1",
+      [postId]
+    );
+    const post = result.rows[0];
+
+    if (post) {
+      res.render("fitshare-editpost", {
+        title: "Edit Post",
+        post: post,
+        loggedIn: true,
+      });
+    } else {
+      res.status(404).send("Post not found.");
+    }
+  } catch (error) {
+    console.error("Error fetching post for editing:", error);
+    res.status(500).send("Error fetching post for editing.");
+  }
+});
+
+// Proses Edit Post
+app.post("/edit-post/:id", checkAuth, async (req, res) => {
+  const postId = req.params.id;
+  const { caption } = req.body;
+
+  try {
+    await pool.query(
+      "UPDATE posts SET caption = $1, updated_at = NOW() WHERE id = $2",
+      [caption, postId]
+    );
+    res.redirect("/fit-share");
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).send("Error updating post.");
+  }
+});
+
+// Proses Hapus Post
+app.post("/delete-post/:id", checkAuth, async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+    await pool.query("DELETE FROM posts WHERE id = $1", [postId]);
+    res.redirect("/fit-share");
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).send("Error deleting post.");
+  }
+});
+
+
 // Menangani unggahan foto dan caption
 app.post("/upload", upload.single("photo"), async (req, res) => {
   if (!req.session.userId) {
@@ -397,7 +517,7 @@ app.post("/upload", upload.single("photo"), async (req, res) => {
  
   res.redirect("/upload");
 });
- 
+
 // Endpoint untuk menghapus form
 app.delete("/forms/:form_id", checkAuth, async (req, res) => {
   try {
@@ -462,7 +582,7 @@ app.post("/forms", upload.single("foto_diri"), async (req, res) => {
     kategori_acara,
     riwayat_kesehatan,
   } = req.body;
- 
+
   if (
     !nama_lengkap ||
     !jenis_kelamin ||
@@ -480,7 +600,8 @@ app.post("/forms", upload.single("foto_diri"), async (req, res) => {
   const foto_diri = req.file ? req.file.filename : null;
  
   const userId = req.session.userId;
- 
+
+  // Log data yang akan disimpan (untuk debugging)
   console.log("Data yang akan disimpan:", {
     nama_lengkap,
     jenis_kelamin,
@@ -498,6 +619,7 @@ app.post("/forms", upload.single("foto_diri"), async (req, res) => {
   // Simpan data ke dalam database PostgreSQL
   const query =
     "INSERT INTO forms (user_id, nama_lengkap, jenis_kelamin, usia, kode_negara, nomor_telepon, email, alamat, kategori_acara, riwayat_kesehatan, foto_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)";
+
   const values = [
     userId,
     nama_lengkap,
@@ -511,7 +633,7 @@ app.post("/forms", upload.single("foto_diri"), async (req, res) => {
     riwayat_kesehatan,
     foto_diri ? `uploads/${foto_diri}` : null,
   ];
- 
+
   try {
     await pool.query(query, values);
     res.json({ success: true });
@@ -555,7 +677,10 @@ app.post("/forms/:form_id", checkAuth, async (req, res) => {
 });
  
 app.use((req, res) => {
-  res.status(404).send("<h1>404 - Page Not Found</h1>");
+  // Assuming you have a way to check if the user is logged in
+  const loggedIn = req.isAuthenticated ? req.isAuthenticated() : false;
+
+  res.status(404).render("pagenotfound", { loggedIn });
 });
  
 // Start server

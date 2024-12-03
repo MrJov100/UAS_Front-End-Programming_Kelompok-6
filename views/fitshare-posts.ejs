@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/fitshare.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/backToTopButton.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- TOMBOL Back to Top -->
+    <button id="backToTopBtn" class="back-to-top">
+      <img
+        src="/assets/images/green-up.png"
+        alt="Back to Top"
+        id="backToTopImg"
+      />
+    </button>
+
+    <nav id="navbar">
+      <input type="checkbox" id="check" />
+
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <a href="/" id="logo"
+        ><img src="/assets/images/logo.png" alt="FitSteps Logo"
+      /></a>
+
+      <div class="navbar-biasa">
+        <a href="/">Home</a>
+        <a href="/fit-share">Fit Share</a>
+        <a href="/trendy-shoes">Trendy Shoes</a>
+        <a href="/health-benefits">Health Benefits</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/events">Upcoming Events</a>
+
+        <% if (loggedIn) { %>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+        <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Daftar</a>
+        <% } %>
+
+        <!-- Tombol Mode Terang/Gelap -->
+        <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+      </div>
+
+      <a href="/" id="moto"
+        ><img src="/assets/images/moto.png" alt="FitSteps Moto"
+      /></a>
+    </nav>
+
+    <% if (loggedIn) { %>
+    <h1>Your Posts</h1>
+    <p>Welcome, <%= namaLengkap %>!</p>
+
+    <!-- bagian Carousel -->
+    <section class="container carousel-container">
+      <div
+        id="photographyCarousel"
+        class="carousel slide carousel-fade"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="/assets/images/exercise-pic/EXERCISE8.jpg"
+              class="d-block w-100"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="/assets/images/exercise-pic/EXERCISE9.jpg"
+              class="d-block w-100"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="/assets/images/exercise-pic/EXERCISE3.jpg"
+              class="d-block w-100"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="/assets/images/exercise-pic/EXERCISE5.jpg"
+              class="d-block w-100"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="post-container">
+      <a href="/add-post" class="btn-add-post">Add New Post</a>
+      <ul class="post-list">
+        <% posts.forEach(post => { %>
+        <li class="post-item">
+          <div class="post-actions">
+            <div class="dropdown">
+              <button class="dropdown-button">•••</button>
+              <div class="dropdown-menu">
+                <a href="/edit-post/<%= post.id %>" class="dropdown-item"
+                  >Edit</a
+                >
+                <form
+                  action="/delete-post/<%= post.id %>"
+                  method="POST"
+                  class="dropdown-item"
+                  id="delete-post-form-<%= post.id %>"
+                >
+                  <button
+                    type="button"
+                    class="btn-delete"
+                    onclick="confirmDelete('<%= post.id %>')"
+                  >
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="post-content">
+            <div class="post-image">
+              <img
+                src="/uploads/<%= post.photo_filename %>"
+                alt="Post Image"
+                class="post-image-img"
+              />
+            </div>
+            <div class="post-caption">
+              <div class="post-author">
+                <p>
+                  <span class="author-name"><%= post.nama_lengkap %></span>
+                </p>
+              </div>
+              <div class="caption-text">
+                <p><%= post.caption %></p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <% }) %>
+      </ul>
+      <% } else { %>
+      <p class="no-posts-message">
+        You need to be logged in to view your posts.
+      </p>
+      <% } %>
+    </div>
+
+    <div id="footer-placeholder"><%- include('footer') %></div>
+
+    <script src="/scripts/theme-toggle.js"></script>
+    <script src="/scripts/backToTopButton.js"></script>
+    <script src="/scripts/footer.js"></script>
+    <script src="/scripts/home-script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      function confirmDelete(postId) {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "Cancel",
+          reverseButtons: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Submit the form if the user confirms
+            document.getElementById(`delete-post-form-${postId}`).submit();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

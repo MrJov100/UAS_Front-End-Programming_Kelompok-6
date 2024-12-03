@@ -25,15 +25,16 @@ Langkah - langkah:
    password TEXT NOT NULL
    );
 
-
-   -- Tabel untuk menyimpan data foto yang diupload
-   CREATE TABLE uploads (
-   id SERIAL PRIMARY KEY,
-   id_user INTEGER REFERENCES users(id) ON DELETE CASCADE,  -- Foreign key referencing users table
-   caption TEXT,
-   photo_url TEXT
+   CREATE TABLE posts (
+   id SERIAL PRIMARY KEY,                  -- ID unik untuk setiap post
+   user_id INT NOT NULL,                    -- ID user yang membuat post
+   caption TEXT,                            -- Caption untuk foto
+   photo_filename VARCHAR(255),             -- Nama file foto yang diunggah
+   created_at TIMESTAMP DEFAULT NOW(),      -- Waktu pembuatan
+   updated_at TIMESTAMP DEFAULT NOW(),      -- Waktu terakhir diperbarui
+   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE  -- Relasi ke tabel users
    );
-
+   
    -- Tabel untuk isi form
    CREATE TABLE forms (
       form_id SERIAL PRIMARY KEY,

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/fitshare-addpost.css" />
+ 
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+  </head>
+  <body>
+    <nav id="navbar">
+      <input type="checkbox" id="check" />
+ 
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+ 
+      <a href="/" id="logo"
+        ><img src="/assets/images/logo.png" alt="FitSteps Logo"
+      /></a>
+ 
+      <div class="navbar-biasa">
+        <a href="/">Home</a>
+        <a href="/fit-share">Fit Share</a>
+        <a href="/trendy-shoes">Trendy Shoes</a>
+        <a href="/health-benefits">Health Benefits</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/events">Upcoming Events</a>
+ 
+        <% if (loggedIn) { %>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+        <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Daftar</a>
+        <% } %>
+ 
+        <!-- Tombol Mode Terang/Gelap -->
+        <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+      </div>
+ 
+      <a href="/" id="moto"
+        ><img src="/assets/images/moto.png" alt="FitSteps Moto"
+      /></a>
+    </nav>
+ 
+    <% if (loggedIn) { %>
+    <div class="post-container">
+      <h1 class="post-title">Share Your Photo with Us</h1>
+      <form
+        action="/add-post"
+        method="POST"
+        enctype="multipart/form-data"
+        class="post-form"
+      >
+        <div class="form-group">
+          <label for="caption">Caption:</label>
+          <textarea
+            id="caption"
+            name="caption"
+            class="form-control"
+            placeholder="Write a brief caption..."
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="photo">Upload Photo:</label>
+          <input
+            type="file"
+            id="photo"
+            name="photo"
+            class="form-control-file"
+            accept="image/*"
+            required
+          />
+        </div>
+        <button type="submit" class="btn-submit">Submit</button>
+      </form>
+    </div>
+    <% } else { %>
+    <div class="login-message">
+      <p>You need to be logged in to create a post.</p>
+    </div>
+    <% } %>
+ 
+    <div id="footer-placeholder"><%- include('footer') %></div>
+ 
+    <script src="/scripts/theme-toggle.js"></script>
+    <script src="/scripts/footer.js"></script>
+  </body>
+</html>
