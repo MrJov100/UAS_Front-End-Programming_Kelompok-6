@@ -2,7 +2,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
  
 body {
@@ -24,15 +23,23 @@ body {
   --border-color: #ddd;
   --text-muted: #555;
 }
+
+/* Carousel */
+.carousel-container {
+  width: 100%;
+  height: auto;
+}
+
+#photographyCarousel {
+  width: 100%;
+  height: auto;
+}
  
 /* Wrapper utama */
 .post-container {
   max-width: 800px;
   margin: 50px auto;
-  padding: 20px;
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
  
@@ -40,17 +47,16 @@ body {
 .btn-add-post {
   display: inline-block;
   margin-bottom: 30px;
-  padding: 10px 15px;
-  background-color: var(--primary-color);
+  background-color: #4bde38;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 24px;
+  padding: 10px;
 }
  
 .btn-add-post:hover {
-  background-color: var(--primary-hover);
+  background-color: #218838;
 }
  
 /* Daftar postingan */
@@ -85,17 +91,16 @@ body {
 }
  
 .dropdown-button {
-  padding: 8px 12px;
-  background-color: var(--primary-color);
-  color: #fff;
+  /* padding: 8px 12px; */
   border: none;
-  border-radius: 5px;
-  font-size: 14px;
+  background-color: var(--background-light);
+  color: #4bde38;
+  font-size: 36px;
   cursor: pointer;
 }
  
 .dropdown-button:hover {
-  background-color: var(--primary-hover);
+  color: #218838;
 }
  
 .dropdown-menu {
@@ -120,6 +125,11 @@ body {
  
 .dropdown-menu .dropdown-item:hover {
   background-color: #f2f2f2;
+}
+
+.btn-delete {
+  color: red;
+  border: none;
 }
  
 .dropdown:hover .dropdown-menu {
@@ -153,19 +163,25 @@ body {
 }
  
 /* Teks caption */
+.post-caption {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
 .caption-text {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  text-align: center;
-  color: var(--primary-color);
+  font-size: 20px;
+  color: black;
+  margin-top: 5px;
 }
  
 /* Penulis postingan */
 .post-author {
-  font-size: 14px;
-  color: var(--text-muted);
+  font-size: 20px;
+  font-weight: bold;
+  color: #4bde38;
   margin-top: 5px;
+  margin-right: 10px;
 }
  
 /* Pesan jika tidak ada postingan */

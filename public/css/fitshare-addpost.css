@@ -64,7 +64,7 @@
     padding: 12px 20px;
     font-size: 1em;
     color: #fff;
-    background-color: #007bff;
+    background-color: #4bde38;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -72,7 +72,7 @@
   }
    
   .btn-submit:hover {
-    background-color: #0056b3;
+    background-color: #218838;
   }
    
   .login-message {

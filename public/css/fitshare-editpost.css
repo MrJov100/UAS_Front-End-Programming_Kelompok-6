@@ -53,7 +53,7 @@
   }
    
   .edit-post-textarea:focus {
-    border-color: #007bff;
+    border-color: #4bde38;
     outline: none;
   }
    
@@ -63,7 +63,7 @@
     font-size: 16px;
     font-weight: bold;
     color: white;
-    background-color: #007bff;
+    background-color: #4bde38;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -71,7 +71,7 @@
   }
    
   .edit-post-button:hover {
-    background-color: #0056b3;
+    background-color: #218838;
   }
    
   .login-message {

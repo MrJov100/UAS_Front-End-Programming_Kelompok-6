@@ -66,7 +66,7 @@
     <p>Welcome, <%= namaLengkap %>!</p>
 
     <!-- bagian Carousel -->
-    <section class="container carousel-container mt-5 pt-5">
+    <section class="container carousel-container">
       <div
         id="photographyCarousel"
         class="carousel slide carousel-fade"
@@ -98,24 +98,6 @@
             />
           </div>
         </div>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#photographyCarousel"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#photographyCarousel"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
       </div>
     </section>
 
@@ -126,7 +108,7 @@
         <li class="post-item">
           <div class="post-actions">
             <div class="dropdown">
-              <button class="dropdown-button">Actions</button>
+              <button class="dropdown-button">•••</button>
               <div class="dropdown-menu">
                 <a href="/edit-post/<%= post.id %>" class="dropdown-item"
                   >Edit</a
@@ -158,11 +140,14 @@
               />
             </div>
             <div class="post-caption">
-              <p class="caption-text"><%= post.caption %></p>
-              <p class="post-author">
-                <strong>Posted by: </strong
-                ><span class="author-name"><%= post.nama_lengkap %></span>
-              </p>
+              <div class="post-author">
+                <p>
+                  <span class="author-name"><%= post.nama_lengkap %></span>
+                </p>
+              </div>
+              <div class="caption-text">
+                <p><%= post.caption %></p>
+              </div>
             </div>
           </div>
         </li>

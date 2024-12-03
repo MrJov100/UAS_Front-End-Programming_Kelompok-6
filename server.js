@@ -387,6 +387,10 @@ app.post("/add-post", checkAuth, upload.single("photo"), async (req, res) => {
 // Halaman Menampilkan Semua Post
 app.get("/fit-share", checkAuth, async (req, res) => {
   try {
+    // Log session data untuk memastikan userId dan namaLengkap ada
+    console.log("User ID:", req.session.userId);
+    console.log("Nama Lengkap:", req.session.namaLengkap);
+
     const userId = req.session.userId;
 
     // Fetch posts along with the user's full name
@@ -395,10 +399,12 @@ app.get("/fit-share", checkAuth, async (req, res) => {
       SELECT p.id, p.caption, p.photo_filename, p.created_at, u.nama_lengkap 
       FROM posts p
       JOIN users u ON p.user_id = u.id
-      WHERE p.user_id = $1
-      `,
-      [userId]
+      ORDER BY p.created_at DESC
+      `
     );
+
+    // Log hasil query untuk memastikan data posts berhasil diambil
+    console.log("Fetched posts:", result.rows);
 
     // Render halaman dengan data posts, kosongkan jika tidak ada postingan
     res.render("fitshare-posts", {
@@ -412,6 +418,7 @@ app.get("/fit-share", checkAuth, async (req, res) => {
     res.status(500).send("Error fetching posts.");
   }
 });
+
 
 // Halaman Edit Post
 app.get("/edit-post/:id", checkAuth, async (req, res) => {
