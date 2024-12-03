@@ -54,10 +54,19 @@
             </button>
           </td>
           <td>
+            <button
+              class="edit-form-button"
+              data-form-id="<%= form.form_id %>"
+            >
+              Edit
+            </button>
+          </td>
+          
+          <!-- <td>
             <a href="/forms/<%= form.form_id %>/edit" class="edit-form-link"
               >Edit Form</a
             >
-          </td>
+          </td> -->
         </tr>
         <% }); %>
       </tbody>
@@ -69,7 +78,18 @@
     <script>
       // Mendapatkan semua tombol hapus
       const deleteButtons = document.querySelectorAll(".delete-form-button");
- 
+      // Mendapatkan semua tombol edit
+      const editButtons = document.querySelectorAll(".edit-form-button");
+
+      editButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const formId = button.dataset.formId;
+
+          // Arahkan pengguna ke halaman edit form
+          window.location.href = `/forms/${formId}/edit`;
+        });
+      });
+
       deleteButtons.forEach((button) => {
         button.addEventListener("click", async () => {
           const formId = button.dataset.formId;
