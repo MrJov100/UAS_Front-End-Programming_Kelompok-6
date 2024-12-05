@@ -106,30 +106,33 @@
       <ul class="post-list">
         <% posts.forEach(post => { %>
         <li class="post-item">
-          <div class="post-actions">
-            <div class="dropdown">
-              <button class="dropdown-button">•••</button>
-              <div class="dropdown-menu">
-                <a href="/edit-post/<%= post.id %>" class="dropdown-item"
-                  >Edit</a
-                >
-                <form
-                  action="/delete-post/<%= post.id %>"
-                  method="POST"
-                  class="dropdown-item"
-                  id="delete-post-form-<%= post.id %>"
-                >
-                  <button
-                    type="button"
-                    class="btn-delete"
-                    onclick="confirmDelete('<%= post.id %>')"
+          <%if (post.user_id === loggedInUserId) { %>
+            <div class="post-actions">
+              <div class="dropdown">
+                <button class="dropdown-button">•••</button>
+                <div class="dropdown-menu">
+                  <a href="/edit-post/<%= post.id %>" class="dropdown-item"
+                    >Edit</a
                   >
-                    Delete
-                  </button>
-                </form>
+                  <form
+                    action="/delete-post/<%= post.id %>"
+                    method="POST"
+                    class="dropdown-item"
+                    id="delete-post-form-<%= post.id %>"
+                  >
+                    <button
+                      type="button"
+                      class="btn-delete"
+                      onclick="confirmDelete('<%= post.id %>')"
+                    >
+                      Delete
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
+          <% } %>
+          
 
           <div class="post-content">
             <div class="post-image">
