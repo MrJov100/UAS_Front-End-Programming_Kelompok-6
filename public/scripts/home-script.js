@@ -1,5 +1,3 @@
-
-
 // fungsi pop up brosur
 const popup = document.getElementById("popup");
 const closeBtn = document.getElementById("closeBtn");

@@ -113,7 +113,6 @@
  
             if (result.success) {
               alert("Form berhasil dihapus.");
-              // Hapus baris tabel dari DOM
               button.closest("tr").remove();
             } else {
               alert(`Gagal menghapus form: ${result.message}`);
