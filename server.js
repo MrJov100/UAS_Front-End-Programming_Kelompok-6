@@ -13,7 +13,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "FitSteps",
-  password: "jovandi", //pass elys: ce171431
+  password: "ce171431", //pass elys: ce171431
   port: 5432,
 });
 
@@ -424,6 +424,7 @@ app.get("/fit-share", checkAuth, async (req, res) => {
       posts: result.rows,
       loggedIn: true,
       namaLengkap: req.session.namaLengkap, // User's full name (opsional)
+      loggedInUserId: userId,
     });
   } catch (error) {
     console.error("Error fetching posts:", error);
