@@ -407,7 +407,7 @@ app.get("/fit-share", checkAuth, async (req, res) => {
 
     const result = await pool.query(
       `
-      SELECT p.id, p.caption, p.photo_filename, p.created_at, u.nama_lengkap 
+      SELECT p.id, p.user_id, p.caption, p.photo_filename, p.created_at, u.nama_lengkap 
       FROM posts p
       JOIN users u ON p.user_id = u.id
       ORDER BY p.created_at DESC
@@ -416,13 +416,14 @@ app.get("/fit-share", checkAuth, async (req, res) => {
 
     // Log hasil query untuk memastikan data posts berhasil diambil
     console.log("Fetched posts:", result.rows);
+    console.log("loggedin user:", userId);
 
     // Render halaman dengan data posts, kosongkan jika tidak ada postingan
     res.render("fitshare-posts", {
       title: "Semua Post",
       posts: result.rows,
       loggedIn: true,
-      namaLengkap: req.session.namaLengkap,
+      namaLengkap: req.session.namaLengkap, // User's full name (opsional)
     });
   } catch (error) {
     console.error("Error fetching posts:", error);
