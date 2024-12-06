@@ -13,7 +13,7 @@ Langkah - langkah:
 
 2. Buka pgadmin4, kemudian buat database baru bernama FitSteps
 
-3. dalam database CobaLogin, cari Schemas > Tables
+3. dalam database FitSteps, cari Schemas > Tables
    kemudian klik kanan pada Tables > Query Tools
 
 4. paste kode ini ke dalam query
